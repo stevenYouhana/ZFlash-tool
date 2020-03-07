@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity  } from 'react-native';
+import Database from '../../database/Database';
+const db = new Database();
 
 export default class Topics extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { topics: ['topic 1','topic 2', 'topic 3','topic 1','topic 2', 'topic 3','topic 2', 'topic 3','topic 2', 'topic 3'] }
+    this.state = { topics: ['topic 1','topic 2', 'topic 3'] }
     this.getTopics = this.getTopics.bind(this);
   }
-  getTopics() {    
+  getTopics() {
     return this.state.topics ?
       this.state.topics.map((topic, i) => {
         return(
@@ -19,6 +21,9 @@ export default class Topics extends React.Component {
          </TouchableOpacity>
        );
       }) : [];
+  }
+  componentDidMount() {
+    db.setDataUpToDate();
   }
   render() {
     return(

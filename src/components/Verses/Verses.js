@@ -8,7 +8,7 @@ export default class Verses extends React.Component {
   }
   fetchVerses() {
     console.log("fetchVerses() for "+this.props.topic);
-    return ['verse1', 'verse2', 'verse3', 'verse4', 'verse5','verse1', 'verse2', 'verse3', 'verse4', 'verse5']
+    return ['verse1', 'verse2', 'verse3',]
       .map((verse, i) => {
         return(
           <View key={`view${verse}${i}`} style={styles.versesContainer}>
