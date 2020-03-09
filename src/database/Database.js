@@ -4,12 +4,12 @@ const db = SQLite.openDatabase("db.db");
 
 export default class Database {
   setDataUpToDate() {
-    return new Promise(resolved => {
+    return new Promise(resolve => {
       db.transaction(tx => {
         tx.executeSql(
           `select * from topics;`,
           [],
-          (_, { rows: { _array } }) => resolved(_array)
+          (_, { rows: { _array } }) => resolve(_array)
         );
       });
     });
@@ -29,11 +29,10 @@ export default class Database {
     return new Promise(resolve => {
       db.transaction(
         tx => {
-          tx.executeSql("SELECT FROM topics WHERE topicName = (?)", [topic], (_, { rows }) => {
-            // console.log(JSON.stringify(rows))
-            resolve(rows);
-          }
-        )},
+          tx.executeSql("SELECT * FROM topics WHERE topicName = (?)", [topic],
+            (_, { rows: { _array } }) => resolve(_array)
+          );
+        },
         null,
         null
       );
@@ -54,13 +53,39 @@ export default class Database {
      () => console.log("result added!")
    );
  }
+testUpdate() {
+  let topic = 'fire';
+  let verses = 'Jer 5|Jn 5|Mk 7: 3';
+  db.transaction(tx => {
+    tx.executeSql(
+      `UPDATE topics SET verses = '${verses}' WHERE topicName = '${topic}'`,
+      [],
+      null
+    );
+  })
+}
+ addVerseFor(topic, newVerse) {
+   this.findTopic(topic).then(results => {
+     console.log("this.findTopic(topic).then(results => ", results)
+     return results[0].verses ? `${results[0].verses}|${newVerse}` : newVerse;
+   }).then((totalVerses) => {
+     console.log(".then((totalVerses) => ", totalVerses)
+     db.transaction(tx => {
+       tx.executeSql(
+         `UPDATE topics SET verses = '${totalVerses}' WHERE topicName = '${topic}'`,
+         [],
+         null
+       );
+     });
+   })
+ }
  clearDB() {
    db.transaction(
                tx => {
                  tx.executeSql(`DELETE FROM topics`);
                },
                null,
-               this.update
+               null
              )
  }
 }

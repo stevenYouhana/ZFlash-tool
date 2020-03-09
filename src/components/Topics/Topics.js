@@ -15,7 +15,6 @@ export default class Topics extends React.Component {
   getTopics() {
     return this.state.topics && this.state.topics.length > 0 ?
       this.state.topics.map((topic, i) => {
-        console.log("TOPIC: ", topic)
         return(
           <Topic key={`Topic${i}`} childKey={`childKey${i}`}
            textKey={`textKey${i}`} topicName={topic}
@@ -34,21 +33,19 @@ export default class Topics extends React.Component {
     });
   }
   handleNewTopic(topic) {
-    console.log("handleNewTopic(topic): ", topic)
-    if (!topic || topic == undefined) {
+    if (!topic || topic === '') {
       return;
     }
     this.setState({ newTopic: topic });
     db.add(topic);
     setTimeout(() => this.updateData(), 5);
-
   }
   componentDidMount() {
     // db.clearDB();
     db.setDataUpToDate().then(results => {
       console.log("componentDidMount() Topics.js: ", results);
       results.map(result => {
-        this.setState({topics: [...this.state.topics, result.topicName]});
+        this.setState({ topics: [...this.state.topics, result.topicName] });
       })
     })
   }
@@ -63,7 +60,6 @@ export default class Topics extends React.Component {
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   topicsView: {

@@ -9,12 +9,16 @@ const db = new Database();
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { topic: '' };
+    this.state = { topic: '', rawVerses: '' };
     this.handleTopic = this.handleTopic.bind(this);
   }
   handleTopic(topic) {
-    this.setState({topic: topic})    
+    this.setState({topic: topic});
+    db.findTopic(topic).then(results => {
+      this.setState({ rawVerses: results[0].verses })
+    });
   }
+
   componentDidMount() {
     db.initDB();
   }
@@ -28,7 +32,7 @@ export default class Home extends React.Component {
           </View>
           <View style={styles.versesView}>
             <Text style={styles.verseViewHeading}>Verses for {this.state.topic}</Text>
-            <Verses topic={this.state.topic} />
+            <Verses topic={this.state.topic} rawVerses={this.state.rawVerses} />
           </View>
         </View>
       </SafeAreaView>

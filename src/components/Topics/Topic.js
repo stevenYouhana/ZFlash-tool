@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity  } from 'react-native';
-const formatTopicName = (topic) => {
-  // console.log(`formatTopicName(topic)`, topic)
-  // console.log(topic.slice(1, topic.length).toLowerCase())
-  console.log("formatTopicName = (topic): ", topic);
+const formatTopicName = (topic) => {    
   if (topic && typeof topic === 'string')
     return topic.charAt(0).toUpperCase() +
       topic.slice(1, topic.length).toLowerCase();

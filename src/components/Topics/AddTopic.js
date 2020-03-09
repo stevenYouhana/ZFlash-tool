@@ -15,10 +15,10 @@ const AddTopic = props => {
       />
       <View style={styles.buttonView}>
         <Button title="Add"
-        style={{height: 60, padding: 10}}
         onPress={() => {
           props.handleNewTopic(topic)
-          textInput.clear();
+          textInput.clear()
+          topic = null;
         }} />
     </View>
       </View>
