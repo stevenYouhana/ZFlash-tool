@@ -3,16 +3,44 @@ import { Platform, Button, TextInput, StyleSheet, Text, View, SafeAreaView } fro
 
 const AddTopic = props => {
   let topic;
+  let textInput = React.createRef();
   return(
-    <View>
+    <View style={styles.container}>
       <TextInput
+        style={styles.textField}
+        ref={input => { textInput = input }}
         placeholder="new topic"
-        style={{ height: 40, width: 150, borderColor: 'gray', borderWidth: 1 }}
         onChangeText={text => topic = text}
         value={topic}
       />
-      <Button title="Add" onPress={() => props.handleNewTopic(topic)} />
+      <View style={styles.buttonView}>
+        <Button title="Add"
+        style={{height: 60, padding: 10}}
+        onPress={() => {
+          props.handleNewTopic(topic)
+          textInput.clear();
+        }} />
     </View>
+      </View>
   );
 }
+const styles = StyleSheet.create({
+  container : {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'space-between'
+  },
+  textField: {
+    alignContent: 'flex-start',
+    height: 35,
+    width: 215,
+    borderColor: 'gray',
+    borderWidth: 1,
+    paddingLeft: 5
+  },
+  buttonView: {
+    width: 80,
+    height: 40,
+  }
+});
 export default AddTopic;

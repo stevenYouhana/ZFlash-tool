@@ -3,7 +3,6 @@ import { Platform, StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import Database from '../../database/Database';
 import Topics from '../Topics/Topics';
 import Verses from '../Verses/Verses';
-import AddTopic from '../Topics/AddTopic';
 
 const db = new Database();
 
@@ -14,11 +13,7 @@ export default class Home extends React.Component {
     this.handleTopic = this.handleTopic.bind(this);
   }
   handleTopic(topic) {
-    this.setState({topic: topic})
-    db.add(topic);
-  }
-  handleNewTopic(topic) {
-    console.log("New topic: "+topic)
+    this.setState({topic: topic})    
   }
   componentDidMount() {
     db.initDB();
@@ -28,7 +23,6 @@ export default class Home extends React.Component {
       <SafeAreaView>
         <View style={styles.container}>
           <Text style={styles.title}>Z Flash</Text>
-          <AddTopic handleNewTopic={this.handleNewTopic.bind(this)} />
           <View style={styles.topicsView}>
             <Topics handleTopic={this.handleTopic} />
           </View>
