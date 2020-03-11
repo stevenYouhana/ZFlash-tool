@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Platform, Button, TextInput, StyleSheet, Text, View, SafeAreaView } from 'react-native';
-import { KeyboardAvoidingView } from 'react-native';
 
 const AddVerse = props => {
   let verse;
   let textInput = React.createRef();
   return(
-    <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+    <View style={styles.container}>
       <TextInput
         style={styles.textField}
         ref={input => { textInput = input }}
@@ -21,14 +20,14 @@ const AddVerse = props => {
           verse = null;
         }} />
       </View>
-    </KeyboardAvoidingView>
+    </View>
   );
 }
 const styles = StyleSheet.create({
   container : {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     flex: 1,
+    justifyContent: 'space-between'
   },
   textField: {
     alignContent: 'flex-start',

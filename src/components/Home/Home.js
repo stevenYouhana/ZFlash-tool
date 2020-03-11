@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { Platform, StyleSheet, Text, View, SafeAreaView, TextInput, Button, Keyboard, KeyboardAvoidingView, ScrollView } from 'react-native';
 import Database from '../../database/Database';
 import Topics from '../Topics/Topics';
 import Verses from '../Verses/Verses';
@@ -18,9 +18,28 @@ export default class Home extends React.Component {
       this.setState({ rawVerses: results[0].verses })
     });
   }
+  componentWillUnmount() {
+  this.keyboardDidShowListener.remove();
+  this.keyboardDidHideListener.remove();
+}
 
+_keyboardDidShow() {
+  alert('Keyboard Shown');
+}
+
+_keyboardDidHide() {
+  alert('Keyboard Hidden');
+}
   componentDidMount() {
     db.initDB();
+    this.keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      this._keyboardDidShow,
+    );
+    this.keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      this._keyboardDidHide,
+    );
   }
   render() {
     return(
@@ -41,6 +60,19 @@ export default class Home extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  textField: {
+    alignContent: 'flex-start',
+    height: 35,
+    width: 215,
+    borderColor: 'gray',
+    borderWidth: 1,
+    paddingLeft: 5,
+    // bottom: 50,  TO KEYBOAD TOP
+  },
+  buttonView: {
+    width: 80,
+    height: 40,
+  },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -63,5 +95,10 @@ const styles = StyleSheet.create({
     padding: 5,
     borderStyle: 'solid',
     borderWidth: .3
-  }
+  },
+  form: {
+    flex: 1,
+    paddingBottom: 15,
+    justifyContent: 'space-between',
+  },
 });
