@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, Button, TextInput, StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { Button, TextInput, StyleSheet, Text, View, SafeAreaView } from 'react-native';
 
 const AddTopic = props => {
   let topic;
@@ -20,8 +20,8 @@ const AddTopic = props => {
           textInput.clear()
           topic = null;
         }} />
-    </View>
       </View>
+    </View>
   );
 }
 const styles = StyleSheet.create({
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     width: 215,
     borderColor: 'gray',
     borderWidth: 1,
-    paddingLeft: 5
+    paddingLeft: 5,    
   },
   buttonView: {
     width: 80,

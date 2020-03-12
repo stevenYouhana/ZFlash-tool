@@ -8,19 +8,23 @@ const db = new Database();
 export default class Topics extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { topics: [], newTopic: '' }
+    this.state = { topics: [],  }
     this.getTopics = this.getTopics.bind(this);
     this.updateData = this.updateData.bind(this);
   }
   getTopics() {
-    return this.state.topics && this.state.topics.length > 0 ?
-      this.state.topics.map((topic, i) => {
-        return(
-          <Topic key={`Topic${i}`} childKey={`childKey${i}`}
-           textKey={`textKey${i}`} topicName={topic}
-           handleTopic={this.props.handleTopic} />
-       );
-     }) : <Text style={styles.noTopicsLoded}>no topics loaded ...</Text>
+    if (this.props.keyboardHidden)
+      return this.state.topics && this.state.topics.length > 0 ?
+        this.state.topics.map((topic, i) => {
+          return(
+            <Topic key={`Topic${i}`} childKey={`childKey${i}`}
+             textKey={`textKey${i}`} topicName={topic}
+             handleTopic={this.props.handleTopic} />
+         );
+       }) : <Text style={styles.noTopicsLoded}>no topics loaded ...</Text>
+      else {
+        return <Text style={styles.noTopicsLoded}>...</Text>;
+      }
   }
   updateData() {
     let lastIndex = this.state.topics.length > 0 ? this.state.topics.length : 0;
@@ -31,14 +35,6 @@ export default class Topics extends React.Component {
       }, 10);
 
     });
-  }
-  handleNewTopic(topic) {
-    if (!topic || topic === '') {
-      return;
-    }
-    this.setState({ newTopic: topic });
-    db.add(topic);
-    setTimeout(() => this.updateData(), 5);
   }
   componentDidMount() {
     // db.clearDB();
@@ -52,7 +48,6 @@ export default class Topics extends React.Component {
   render() {
     return(
       <View>
-        <AddTopic handleNewTopic={this.handleNewTopic.bind(this)} />
         <ScrollView style={styles.topicsView}>
           {this.getTopics()}
         </ScrollView>

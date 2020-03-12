@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, SafeAreaView, TextInput, Button, Keyboard, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { Platform, StyleSheet, Text, View, SafeAreaView, TextInput, Button, Keyboard, ScrollView } from 'react-native';
 import Database from '../../database/Database';
 import Topics from '../Topics/Topics';
 import Verses from '../Verses/Verses';
+import Add from '../Utility/Add';
 
 const db = new Database();
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { topic: '', rawVerses: '' };
+    this.state = {
+      topic: '',
+      newTopic: '',
+      rawVerses: '',
+      keyboardHidden: true,
+      keyboardOffset: 0,
+      editMode: false,
+    };
     this.handleTopic = this.handleTopic.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
+    this.handleNewTopic = this.handleNewTopic.bind(this);
+    this.handleNewVerse = this.handleNewVerse.bind(this);
   }
   handleTopic(topic) {
     this.setState({topic: topic});
@@ -18,19 +29,35 @@ export default class Home extends React.Component {
       this.setState({ rawVerses: results[0].verses })
     });
   }
+  handleNewTopic(topic) {
+    if (!topic || topic === '') {
+      return;
+    }
+    this.setState({ newTopic: topic });
+    db.add(topic);
+    setTimeout(() => this.updateData(), 5);
+  }
+  handleNewVerse(newVerse) {
+    console.log("handleNewVerse(newVerse): ", newVerse);
+    if (!newVerse || newVerse === '') return;
+     db.addVerseFor(this.state.topic, newVerse);
+  }
+  handleAdd() {
+    this.setState({ editMode: !this.state.editMode });
+    console.log("handleAdd(): ", this.state.editMode)
+  }
   componentWillUnmount() {
-  this.keyboardDidShowListener.remove();
-  this.keyboardDidHideListener.remove();
-}
-
-_keyboardDidShow() {
-  alert('Keyboard Shown');
-}
-
-_keyboardDidHide() {
-  alert('Keyboard Hidden');
-}
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+  _keyboardDidShow = (event) => {
+    this.setState({ keyboardHidden: false, keyboardOffset: event.endCoordinates.height });
+  }
+  _keyboardDidHide = () => {
+    this.setState({ keyboardHidden: true, keyboardOffset: 0 });
+  }
   componentDidMount() {
+    console.log("this.state.editMode: ",this.state.editMode)
     db.initDB();
     this.keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
@@ -45,13 +72,21 @@ _keyboardDidHide() {
     return(
       <SafeAreaView>
         <View style={styles.container}>
+        <Add handleAdd={this.handleAdd} handleTopic={this.handleTopic}
+        handleNewVerse={this.handleNewVerse}
+        visiblity={this.state.editMode}
+        keyboardOffset={this.state.keyboardOffset} topic={this.state.topic} />
           <Text style={styles.title}>Z Flash</Text>
           <View style={styles.topicsView}>
-            <Topics handleTopic={this.handleTopic} />
+            <Topics editMode={this.state.editMode} handleTopic={this.handleTopic}
+            keyboardHidden={this.state.keyboardHidden} />
           </View>
           <View style={styles.versesView}>
             <Text style={styles.verseViewHeading}>Verses for {this.state.topic}</Text>
-            <Verses topic={this.state.topic} rawVerses={this.state.rawVerses} />
+            <Verses
+            editMode={this.state.editMode}
+            topic={this.state.topic}
+            rawVerses={this.state.rawVerses} />
           </View>
         </View>
       </SafeAreaView>

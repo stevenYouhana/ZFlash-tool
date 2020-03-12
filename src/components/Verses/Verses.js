@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, ScrollView } from 'react-native';
-import AddVerse from './AddVerse';
+import { Platform, StyleSheet, Text, View, ScrollView, KeyboardAvoidingView } from 'react-native';
 import Verse from './Verse';
 import Database from '../../database/Database';
 import ESVapi from '../../Api/ESVapi';
@@ -12,7 +11,6 @@ export default class Verses extends React.Component {
   constructor(props) {
     super(props);
     this.state = { verse: ''  };    
-    this.handleNewVerse = this.handleNewVerse.bind(this);
     this.renderVerses = this.renderVerses.bind(this);
     this.handleVerse = this.handleVerse.bind(this);
   }
@@ -24,14 +22,9 @@ export default class Verses extends React.Component {
       return <Verse key={`${verse}${i}`} verseRef={verse} handleVerse={this.handleVerse} />
     })
   }
-  handleNewVerse(newVerse) {
-    if (!newVerse || newVerse === '') return;
-     db.addVerseFor(this.props.topic, newVerse);
-  }
   render() {
     return(
       <View>
-        <AddVerse handleNewVerse={this.handleNewVerse} />
         <ScrollView>
           {this.renderVerses()}
           <Text>{this.state.verse}</Text>
