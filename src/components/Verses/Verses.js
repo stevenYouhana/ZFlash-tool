@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { Platform, StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
 import Verse from './Verse';
-import Database from '../../database/Database';
 import ESVapi from '../../Api/ESVapi';
 
-const db = new Database();
 const esv = new ESVapi();
 
 export default class Verses extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { verse: ''  };    
+    this.state = { verse: ''  };
     this.renderVerses = this.renderVerses.bind(this);
     this.handleVerse = this.handleVerse.bind(this);
   }
@@ -18,30 +16,47 @@ export default class Verses extends React.Component {
     esv.fetch(verseRef).then(verse => this.setState({ verse }));
   }
   renderVerses() {
-    return this.props.rawVerses.split('|').map((verse, i) => {
-      return <Verse key={`${verse}${i}`} verseRef={verse} handleVerse={this.handleVerse} />
-    })
+    return this.props.rawVerses ?
+      this.props.rawVerses.split('|').map((verse, i) => {
+        return(
+          <Verse key={`${verse}${i}`} verseRef={verse}
+          handleVerse={this.handleVerse} topic={this.props.topic} />
+        );
+      }) :  <Text>No verses loaded yet ...</Text>
   }
   render() {
     return(
-      <View>
-        <ScrollView>
+      <View style={styles.mainView}>
+        <ScrollView style={styles.versesContainer}>
           {this.renderVerses()}
-          <Text>{this.state.verse}</Text>
+        </ScrollView>
+        <ScrollView style={styles.verseContent}>
+          <Text style={styles.verseFont}>{this.state.verse}</Text>
         </ScrollView>
       </View>
     );
   }
 }
 
+const width = Dimensions.get('window').width;
 const styles = StyleSheet.create({
-  versesContainer: {
-    width: 300,
-    alignItems: 'center',
-    padding: 2
+  mainView: {
+    flex: 1,
+    flexDirection: 'row',
   },
-  verse: {
+  versesContainer: {
+    borderStyle: 'dotted',
+    borderRightWidth: .8,
+    width: width * .30,
+    padding: 2,
+    backgroundColor: '#ede5d5'
+  },
+  verseContent: {
+    backgroundColor: 'lightyellow',
+    width: width * .70,
+    padding: 5,
+  },
+  verseFont: {
     fontSize: 16,
-    color: 'blue'
   }
 });

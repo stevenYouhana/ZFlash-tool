@@ -26,6 +26,7 @@ export default class Home extends React.Component {
   handleTopic(topic) {
     this.setState({topic: topic});
     db.findTopic(topic).then(results => {
+      console.log("this.setState({ rawVerses: results[0].verses }): ", results[0].verses)
       this.setState({ rawVerses: results[0].verses })
     });
   }
@@ -35,10 +36,8 @@ export default class Home extends React.Component {
     }
     this.setState({ newTopic: topic });
     db.add(topic);
-    setTimeout(() => this.updateData(), 5);
   }
   handleNewVerse(newVerse) {
-    console.log("handleNewVerse(newVerse): ", newVerse);
     if (!newVerse || newVerse === '') return;
      db.addVerseFor(this.state.topic, newVerse);
   }
@@ -73,6 +72,7 @@ export default class Home extends React.Component {
       <SafeAreaView>
         <View style={styles.container}>
         <Add handleAdd={this.handleAdd} handleTopic={this.handleTopic}
+        handleNewTopic={this.handleNewTopic}
         handleNewVerse={this.handleNewVerse}
         visiblity={this.state.editMode}
         keyboardOffset={this.state.keyboardOffset} topic={this.state.topic} />
@@ -83,8 +83,7 @@ export default class Home extends React.Component {
           </View>
           <View style={styles.versesView}>
             <Text style={styles.verseViewHeading}>Verses for {this.state.topic}</Text>
-            <Verses
-            editMode={this.state.editMode}
+            <Verses editMode={this.state.editMode}
             topic={this.state.topic}
             rawVerses={this.state.rawVerses} />
           </View>
@@ -95,19 +94,6 @@ export default class Home extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  textField: {
-    alignContent: 'flex-start',
-    height: 35,
-    width: 215,
-    borderColor: 'gray',
-    borderWidth: 1,
-    paddingLeft: 5,
-    // bottom: 50,  TO KEYBOAD TOP
-  },
-  buttonView: {
-    width: 80,
-    height: 40,
-  },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -130,10 +116,5 @@ const styles = StyleSheet.create({
     padding: 5,
     borderStyle: 'solid',
     borderWidth: .3
-  },
-  form: {
-    flex: 1,
-    paddingBottom: 15,
-    justifyContent: 'space-between',
   },
 });

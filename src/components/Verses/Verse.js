@@ -1,17 +1,38 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { Alert, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import Database from '../../database/Database';
+const db = new Database();
 
 const Verse = (props) => {
+  const deleteVerse = () => {
+    Alert.alert(
+      'Delete',
+      `Are you sure you want to delete ${props.verseRef} from ${props.topic}?`,
+      [
+        { text: 'Yes',
+          onPress: () => db.deleteAVerseFrom(props.topic, props.verseRef)
+        },
+        { text: 'No', onPress: () => console.log('No Pressed') },
+      ],
+      { cancelable: false }
+    );
+  }
   return(
-    <TouchableOpacity style={styles.verseView} onPress={() => props.handleVerse(props.verseRef)}>
+    <TouchableOpacity style={styles.verseView} onPress={
+      () => props.handleVerse(props.verseRef)}
+      onLongPress={() => deleteVerse()}>
       <Text>{props.verseRef}</Text>
     </TouchableOpacity>
   );
 }
 const styles = StyleSheet.create({
   verseView: {
-    padding: 10,
-    backgroundColor: '#A1F792'
+    padding: 9,
+    borderStyle: 'solid',
+    borderWidth: .2,
+    borderBottomWidth: 1.2,
+    borderLeftWidth: 1.2
+    // backgroundColor: '#A1F792'
   }
 });
 export default Verse;

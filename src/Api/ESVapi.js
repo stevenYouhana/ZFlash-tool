@@ -1,6 +1,6 @@
 
  export default class ESVapi {
-   constructor(verse) {
+   constructor() {
      this.params = {
         'include-headings': 'False',
         'include-footnotes': 'False',

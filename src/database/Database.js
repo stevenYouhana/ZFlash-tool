@@ -44,7 +44,8 @@ export default class Database {
    }
    db.transaction(
      tx => {
-       tx.executeSql("insert into topics (topicName) values (?)", [topic.toLowerCase()]);
+       tx.executeSql("insert into topics (topicName) values (?)",
+       [topic.trim().toLowerCase()]);
        tx.executeSql("select * from topics", [], (_, { rows }) =>
          console.log("topic added: "+topic)
        );
@@ -53,23 +54,11 @@ export default class Database {
      () => console.log("result added!")
    );
  }
-testUpdate() {
-  let topic = 'fire';
-  let verses = 'Jer 5|Jn 5|Mk 7: 3';
-  db.transaction(tx => {
-    tx.executeSql(
-      `UPDATE topics SET verses = '${verses}' WHERE topicName = '${topic}'`,
-      [],
-      null
-    );
-  })
-}
  addVerseFor(topic, newVerse) {
    this.findTopic(topic).then(results => {
-     console.log("this.findTopic(topic).then(results => ", results)
-     return results[0].verses ? `${results[0].verses}|${newVerse}` : newVerse;
+     return results[0].verses ? `${results[0].verses}|${newVerse.trim()}` :
+      newVerse.trim();
    }).then((totalVerses) => {
-     console.log(".then((totalVerses) => ", totalVerses)
      db.transaction(tx => {
        tx.executeSql(
          `UPDATE topics SET verses = '${totalVerses}' WHERE topicName = '${topic}'`,
@@ -79,7 +68,28 @@ testUpdate() {
      });
    })
  }
+ deleteAVerseFrom(topic, verseRef) {
+   this.findTopic(topic).then(results => {
+     return results[0].verses;
+   }).then(currentVerses => {
+     const updatedVerses = currentVerses.replace(`|${verseRef}`, '');
+     console.log("updatedVerses: ",updatedVerses+"END")
+     db.transaction(tx => {
+       tx.executeSql(
+         `UPDATE topics SET verses = '${updatedVerses}' WHERE topicName = '${topic}'`,
+         [],
+         null
+       );
+     });
+   });
+ }
+ deleteATopic(topicName) {
+   db.transaction( tx =>
+     tx.executeSql(`DELETE FROM topics WHERE topicName = '${topicName.toLowerCase()}'`)
+   )
+ }
  clearDB() {
+   console.log("clearDB() ...");
    db.transaction(
                tx => {
                  tx.executeSql(`DELETE FROM topics`);

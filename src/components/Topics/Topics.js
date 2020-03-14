@@ -8,38 +8,40 @@ const db = new Database();
 export default class Topics extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { topics: [],  }
+    this.state = { topics: [],  topic: '' }
     this.getTopics = this.getTopics.bind(this);
     this.updateData = this.updateData.bind(this);
+    this.updateUponRemoval = this.updateUponRemoval.bind(this);
   }
   getTopics() {
-    if (this.props.keyboardHidden)
       return this.state.topics && this.state.topics.length > 0 ?
         this.state.topics.map((topic, i) => {
           return(
             <Topic key={`Topic${i}`} childKey={`childKey${i}`}
              textKey={`textKey${i}`} topicName={topic}
-             handleTopic={this.props.handleTopic} />
+             handleTopic={this.props.handleTopic} updateParentData={this.updateUponRemoval} />
          );
-       }) : <Text style={styles.noTopicsLoded}>no topics loaded ...</Text>
-      else {
-        return <Text style={styles.noTopicsLoded}>...</Text>;
-      }
+       }) : <Text style={styles.noTopicsLoded}>{'no topics loaded...\nClick To load topic'}</Text>      
+  }
+  updateUponRemoval(topicRemoved) {
+    this.setState({ topics: this.state.topics.filter(el => el !== topicRemoved) });
   }
   updateData() {
-    let lastIndex = this.state.topics.length > 0 ? this.state.topics.length : 0;
-    db.setDataUpToDate().then(results => {
-      setTimeout(() => {
-        console.log("results[lastIndex]: ", results[lastIndex])
-        this.setState({topics: [...this.state.topics, results[lastIndex].topicName] });
-      }, 10);
+    if (this.state.topics) {
+      let lastIndex = this.state.topics.length > 0 ? this.state.topics.length : 0;
 
-    });
+      db.setDataUpToDate().then(results => {
+        setTimeout(() => {
+          if (results[lastIndex])
+            this.setState({topics: [...this.state.topics,
+              results[lastIndex].topicName] });
+        }, 10);
+      });
+    }
   }
   componentDidMount() {
     // db.clearDB();
     db.setDataUpToDate().then(results => {
-      console.log("componentDidMount() Topics.js: ", results);
       results.map(result => {
         this.setState({ topics: [...this.state.topics, result.topicName] });
       })
@@ -48,6 +50,12 @@ export default class Topics extends React.Component {
   render() {
     return(
       <View>
+        <TouchableOpacity style={{width: 70, marginTop: 15}} onPress={
+          () => this.updateData()}>
+          <Text style={{padding: 10, borderStyle: 'solid', borderWidth: .2}}>
+            Refresh
+          </Text>
+        </TouchableOpacity>
         <ScrollView style={styles.topicsView}>
           {this.getTopics()}
         </ScrollView>
