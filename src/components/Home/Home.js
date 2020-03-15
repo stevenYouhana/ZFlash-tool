@@ -3,7 +3,6 @@ import { Platform, StyleSheet, Text, View, SafeAreaView, TextInput, Button, Keyb
 import Database from '../../database/Database';
 import Topics from '../Topics/Topics';
 import Verses from '../Verses/Verses';
-import Add from '../Utility/Add';
 
 const db = new Database();
 
@@ -12,38 +11,21 @@ export default class Home extends React.Component {
     super(props);
     this.state = {
       topic: '',
-      newTopic: '',
       rawVerses: '',
       keyboardHidden: true,
       keyboardOffset: 0,
       editMode: false,
     };
     this.handleTopic = this.handleTopic.bind(this);
-    this.handleAdd = this.handleAdd.bind(this);
-    this.handleNewTopic = this.handleNewTopic.bind(this);
-    this.handleNewVerse = this.handleNewVerse.bind(this);
   }
   handleTopic(topic) {
     this.setState({topic: topic});
     db.findTopic(topic).then(results => {
-      console.log("this.setState({ rawVerses: results[0].verses }): ", results[0].verses)
       this.setState({ rawVerses: results[0].verses })
     });
   }
-  handleNewTopic(topic) {
-    if (!topic || topic === '') {
-      return;
-    }
-    this.setState({ newTopic: topic });
-    db.add(topic);
-  }
-  handleNewVerse(newVerse) {
-    if (!newVerse || newVerse === '') return;
-     db.addVerseFor(this.state.topic, newVerse);
-  }
-  handleAdd() {
-    this.setState({ editMode: !this.state.editMode });
-    console.log("handleAdd(): ", this.state.editMode)
+  refreshVerse = () => {
+
   }
   componentWillUnmount() {
     this.keyboardDidShowListener.remove();
@@ -56,7 +38,6 @@ export default class Home extends React.Component {
     this.setState({ keyboardHidden: true, keyboardOffset: 0 });
   }
   componentDidMount() {
-    console.log("this.state.editMode: ",this.state.editMode)
     db.initDB();
     this.keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
@@ -71,18 +52,12 @@ export default class Home extends React.Component {
     return(
       <SafeAreaView>
         <View style={styles.container}>
-        <Add handleAdd={this.handleAdd} handleTopic={this.handleTopic}
-        handleNewTopic={this.handleNewTopic}
-        handleNewVerse={this.handleNewVerse}
-        visiblity={this.state.editMode}
-        keyboardOffset={this.state.keyboardOffset} topic={this.state.topic} />
           <Text style={styles.title}>Z Flash</Text>
           <View style={styles.topicsView}>
             <Topics editMode={this.state.editMode} handleTopic={this.handleTopic}
             keyboardHidden={this.state.keyboardHidden} />
           </View>
           <View style={styles.versesView}>
-            <Text style={styles.verseViewHeading}>Verses for {this.state.topic}</Text>
             <Verses editMode={this.state.editMode}
             topic={this.state.topic}
             rawVerses={this.state.rawVerses} />
@@ -105,16 +80,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   topicsView: {
-    height: 300
+    height: 280
   },
   versesView: {
-    height: 240,
+    // height: 260,
     alignItems: 'center'
-  },
-  verseViewHeading: {
-    fontSize: 18,
-    padding: 5,
-    borderStyle: 'solid',
-    borderWidth: .3
   },
 });

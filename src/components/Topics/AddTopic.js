@@ -9,7 +9,7 @@ const AddTopic = props => {
       <TextInput
         style={styles.textField}
         ref={input => { textInput = input }}
-        placeholder="new topic"
+        placeholder="Topic name"
         onChangeText={text => topic = text}
         value={topic}
       />
@@ -35,8 +35,9 @@ const styles = StyleSheet.create({
     height: 35,
     width: 215,
     borderColor: 'gray',
+    color: 'white',
     borderWidth: 1,
-    paddingLeft: 5,    
+    paddingLeft: 5,
   },
   buttonView: {
     width: 80,

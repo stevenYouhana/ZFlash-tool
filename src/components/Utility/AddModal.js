@@ -6,9 +6,12 @@ import AddVerse from '../Verses/AddVerse';
 
 const AddModal = (props) => {
   return(
+    <View style={styles.mainView}>
     <Modal animationType="slide"
           transparent={false}
           visible={props.visiblity}
+          overlayClassName="Overlay"
+          style={styles.modalContent}
           >
           <View style={styles.container}>
           <Ionicons name="md-checkmark" size={32} color="green"
@@ -19,20 +22,36 @@ const AddModal = (props) => {
           handleNewVerse={props.handleNewVerse}
           topic={props.topic} />
           </View>
-
     </Modal>
+    </View>
+
   );
 }
 
 export default AddModal;
 
 const styles = StyleSheet.create({
+  mainView: {
+    // height: 100,
+    // width: 300,
+    // borderStyle: 'solid',
+    // borderWidth: .5,
+  },
+  modalContent: {
+    justifyContent: 'center',
+        alignItems: 'center',
+        margin: 6,
+         backgroundColor: 'red', padding: 20
+  },
   container: {
     // justifyContent: 'flex-start',
     height: 400,
-    // backgroundColor: 'red',
+    width: 100,
+    borderStyle: 'solid',
+    borderWidth: .5,
     marginLeft: 15,
     marginRight: 15,
+    // backgroundColor: 'lightyellow'
   },
   close: {
     // alignContent: 'flex-start',

@@ -3,7 +3,7 @@ import { Button, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AddModal from './AddModal';
 
-const Add = (props) => {  
+const Add = (props) => {
   return(
     <View style={styles.container}>
 
