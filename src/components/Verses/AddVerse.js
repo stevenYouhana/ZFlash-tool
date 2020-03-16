@@ -6,8 +6,7 @@ let bottomStyle = 0;
 const AddVerse = props => {
   let verse;
   let textInput = React.createRef();
-  bottomStyle = props.keyboardOffset;
-  // bottomStyle = 0;
+
   const styles = StyleSheet.create({
     title: {
       color: 'white',
@@ -23,7 +22,7 @@ const AddVerse = props => {
       alignContent: 'flex-start',
       height: 35,
       width: 215,
-      borderColor: 'gray',
+      borderColor: `${props.topic ? 'gray' : 'black'}`,
       color: 'white',
       borderWidth: 1,
       paddingLeft: 5,
@@ -35,21 +34,23 @@ const AddVerse = props => {
   });
 
   return(
-    <View style={styles.container}>      
+    <View style={styles.container}>
       <View style={styles.addVerseHolder}>
         <TextInput
           style={styles.textField}
           ref={input => { textInput = input }}
-          placeholder="e.g. Jn 1: 1"
+          placeholder={props.topic ? "e.g. Jn 1: 1" : ""}
           onChangeText={text => verse = text}
           value={verse}
+          editable={props.topic ? true : false}
         />
         <View style={styles.buttonView}>
           <Button title="Add" onPress={() => {
             props.handleNewVerse(verse)
             textInput.clear()
             verse = null;
-          }} />
+          }}
+          disabled={props.topic ? false : true} />
         </View>
       </View>
     </View>

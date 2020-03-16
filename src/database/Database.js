@@ -57,7 +57,7 @@ export default class Database {
  addVerseFor(topic, newVerse) {
    this.findTopic(topic).then(results => {
      return results[0].verses ? `${results[0].verses}|${newVerse.trim()}` :
-      newVerse.trim();
+      `|${newVerse.trim()}`;
    }).then((totalVerses) => {
      db.transaction(tx => {
        tx.executeSql(

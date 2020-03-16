@@ -11,7 +11,7 @@ const AddModal = (props) => {
             visible={props.visiblity}
             >
             <View style={styles.container}>
-              <Ionicons name="md-checkmark" size={32} color="green"
+              <Ionicons name="md-checkmark" size={28} color="green"
               style={styles.close} onPress={() => props.hide()} />
               <View style={styles.AddTopic}>
                 <Text style={styles.title}>{props.title}</Text>

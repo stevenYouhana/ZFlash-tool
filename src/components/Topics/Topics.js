@@ -28,9 +28,7 @@ export default class Topics extends React.Component {
        }) : <Text style={styles.noTopicsLoded}>{'no topics loaded...\nClick the plus button to load a topic'}</Text>
   }
   handleNewTopic(topic) {
-    if (!topic || topic === '') {
-      return;
-    }
+    if (!topic || topic === ''|| !/\w/.test(topic)) return;
     db.add(topic);
     this.setState( {topics: [...this.state.topics, topic]} );
   }
@@ -70,7 +68,7 @@ export default class Topics extends React.Component {
       title="Add new topics"
       purpose={() => <AddTopic handleNewTopic={this.handleNewTopic} />} />
         <View style={styles.headerView}>
-          <Ionicons name="md-add-circle" style={styles.addVeiw} size={40} color="#76c740"
+          <Ionicons name="md-add-circle" style={styles.addVeiw} size={35} color="#76c740"
           onPress={() => this.setState({ AddTopicVisibility:true })} />
           <Text style={styles.verseViewHeading}>Topics</Text>
         </View>
@@ -98,8 +96,7 @@ const styles = StyleSheet.create({
   topicsView: {
     width: 300,
     padding: 5,
-    // height: 120,
-    // backgroundColor: 'lightyellow'
+    backgroundColor: 'lightyellow'
   },
   verseViewHeading: {
     fontSize: 20,

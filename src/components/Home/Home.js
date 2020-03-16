@@ -77,19 +77,21 @@ const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     alignItems: 'center',
     flexDirection: 'column',
-    // backgroundColor: '#F5FCFF',
     width: width,
-    // height: height
   },
   title: {
     height: height * .08,
-    fontSize: 20,
-    fontWeight: 'bold',
-    padding: 15,
-    backgroundColor: 'lightyellow'
+    fontFamily: 'monospace',
+    fontSize: 14,
+    fontWeight: 'normal',
+    paddingTop: 30,
+    paddingLeft: 120,
+    paddingRight: 120,
+    borderBottomRightRadius: 5,
+    borderBottomLeftRadius: 5,
+    backgroundColor: 'rgba(217, 116, 76, .1)'
   },
   topicsView: {
     height: height * .39,

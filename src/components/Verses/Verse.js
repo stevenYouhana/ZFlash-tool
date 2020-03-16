@@ -15,7 +15,7 @@ const Verse = (props) => {
             setTimeout(() => props.refreshVerses(props.topic), 500);
           }
         },
-        { text: 'No', onPress: () => console.log('No Pressed') },
+        { text: 'No', onPress: () => null },
       ],
       { cancelable: false }
     );

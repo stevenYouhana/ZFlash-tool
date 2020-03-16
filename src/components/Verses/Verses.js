@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, ScrollView, Dimensions,SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Dimensions,SafeAreaView } from 'react-native';
 import Verse from './Verse';
 import AddVerse from './AddVerse';
 import AddModal from '../Utility/AddModal';
@@ -7,7 +7,6 @@ import Database from '../../database/Database';
 import ESVapi from '../../Api/ESVapi';
 
 import { Ionicons } from '@expo/vector-icons';
-// import { Overlay } from 'react-native-elements';
 
 const db = new Database();
 const esv = new ESVapi();
@@ -25,21 +24,22 @@ export default class Verses extends React.Component {
     this.handleNewVerse = this.handleNewVerse.bind(this);
   }
   handleVerse(verseRef) {
+    this.setState({ verse: 'loading ...' });
     esv.fetch(verseRef).then(verse => this.setState({ verse }));
   }
   renderVerses() {
     return this.props.rawVerses ?
-      this.props.rawVerses.split('|').map((verse, i) => {
-        return(
-          <Verse key={`${verse}${i}`} verseRef={verse}
-          handleVerse={this.handleVerse} topic={this.props.topic}
-          refreshVerses={this.props.refreshVerses} />
-        );
-      }) :  <Text>No verses loaded yet ...</Text>
+      this.props.rawVerses.split('|').filter(el => el !== '')
+        .map( (verse, i) => {
+          return(
+            <Verse key={`${verse}${i}`} verseRef={verse}
+            handleVerse={this.handleVerse} topic={this.props.topic}
+            refreshVerses={this.props.refreshVerses} />
+          );
+        }):  <Text>No verses loaded yet ...</Text>
   }
   handleNewVerse(newVerse) {
-    console.log("handleNewVerse(newVerse) for ", this.props.topic)
-    if (!newVerse || newVerse === '') return;
+    if (!newVerse || newVerse === ''|| !/\w/.test(newVerse)) return;
      db.addVerseFor(this.props.topic, newVerse);
      setTimeout(() => {
        this.props.refreshVerses(this.props.topic);
@@ -60,11 +60,12 @@ export default class Verses extends React.Component {
         <AddModal visiblity={this.state.AddVerseVisibility}
           hide={this.hideAddVerseVisibility}
           handleNewTopic={this.handleNewTopic}
-          title={`Add a new verse for ${this.props.topic}`}
+          title={this.props.topic ? `Add a new verse for <${this.props.topic}>` :
+            'First Select a topic'}
           purpose={() => <AddVerse topic={this.props.topic}
           handleNewVerse={this.handleNewVerse} />} />
           <View style={styles.headerView}>
-            <Ionicons name="md-add-circle" style={styles.addVeiw} size={40} color="#76c740"
+            <Ionicons name="md-add-circle" style={styles.addVeiw} size={35} color="#76c740"
             onPress={() => this.setState({AddVerseVisibility: true })} />
             <View style={{width: 250, height: 50, padding: 10}}>
               <Text style={styles.verseViewHeading}
@@ -80,7 +81,8 @@ export default class Verses extends React.Component {
               {this.renderVerses()}
             </ScrollView>
             <ScrollView style={styles.verseContent}>
-              <Text style={styles.verse}>{this.state.verse}</Text>
+              <Text style={styles.verse}>{this.state.verse ? this.state.verse
+                : 'select a verse ...'}</Text>
             </ScrollView>
           </View>
       </View>
@@ -108,29 +110,30 @@ const styles = StyleSheet.create({
   versesOverall: {
     flex: 1,
     flexDirection: 'row',
-    marginBottom: 5,
-    // height: height * .7,
   },
   verseReferences: {
     borderStyle: 'dotted',
     borderRightWidth: .8,
-    width: width * .30,
+    width: width * .3,
+    height: height * .8,
     padding: 2,
-    backgroundColor: '#ede5d5'
+    backgroundColor: '#ede5d5',
+    marginBottom: 40,
   },
   verseContent: {
     backgroundColor: 'lightyellow',
     width: width * .70,
-    // height: 100,
+    height: height * .8,
     paddingBottom: 0,
     borderStyle: 'solid',
     borderWidth: .3,
     marginRight: 1,
   },
   verse: {
-    fontSize: 16,
+    fontSize: 15,
     paddingBottom: 10,
-    marginBottom: 10
+    marginBottom: 10,
+    padding: 5
   },
   addVeiw: {
     paddingLeft: 10,
