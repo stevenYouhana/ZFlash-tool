@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Platform, Button, TextInput, StyleSheet, Text, View, SafeAreaView } from 'react-native';
 <<<<<<< HEAD
 =======
@@ -9,12 +10,20 @@ import { Platform, Button, TextInput, StyleSheet, Text, View, SafeAreaView }
 >>>>>>> dev
 let bottomStyle = 0;
 >>>>>>> dev
+=======
+import { Platform, Button, TextInput, StyleSheet, Text, View, SafeAreaView }
+  from 'react-native';
+let bottomStyle = 0;
+>>>>>>> dev
 
 const AddVerse = props => {
   let verse;
   let textInput = React.createRef();
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> dev
   bottomStyle = props.keyboardOffset;
   // bottomStyle = 0;
   const styles = StyleSheet.create({
@@ -43,6 +52,7 @@ const AddVerse = props => {
     }
   });
 
+<<<<<<< HEAD
 >>>>>>> dev
   return(
 <<<<<<< HEAD
@@ -65,6 +75,9 @@ const AddVerse = props => {
           verse = null;
         }} />
 =======
+=======
+  return(
+>>>>>>> dev
     <View style={styles.container}>      
       <View style={styles.addVerseHolder}>
         <TextInput
@@ -81,11 +94,15 @@ const AddVerse = props => {
             verse = null;
           }} />
         </View>
+<<<<<<< HEAD
+>>>>>>> dev
+=======
 >>>>>>> dev
       </View>
     </View>
   );
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 const styles = StyleSheet.create({
   container : {
@@ -106,6 +123,9 @@ const styles = StyleSheet.create({
     height: 40,
   }
 });
+=======
+
+>>>>>>> dev
 =======
 
 >>>>>>> dev

@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity  } from 'react-native';
 =======
+=======
+>>>>>>> dev
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import Database from '../../database/Database';
 const db = new Database();
 
+<<<<<<< HEAD
+>>>>>>> dev
+=======
 >>>>>>> dev
 const formatTopicName = (topic) => {
   if (topic && typeof topic === 'string')
@@ -14,8 +20,11 @@ const formatTopicName = (topic) => {
 }
 const Topic = props => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> dev
   const deleteTopic = () => {
     Alert.alert(
       'Delete',
@@ -32,12 +41,19 @@ const Topic = props => {
       { cancelable: false }
     );
   }
+<<<<<<< HEAD
+>>>>>>> dev
+=======
 >>>>>>> dev
   return(
     <TouchableOpacity
     childKey={props.childKey}
     onPress={() => props.handleTopic(props.topicName)}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    onLongPress={() => deleteTopic()}
+>>>>>>> dev
 =======
     onLongPress={() => deleteTopic()}
 >>>>>>> dev
@@ -46,6 +62,7 @@ const Topic = props => {
    </TouchableOpacity>
   );
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 const styles = StyleSheet.create({
@@ -59,6 +76,8 @@ const styles = StyleSheet.create({
      borderWidth: .5,
      // alignItems: 'center',
 =======
+=======
+>>>>>>> dev
 const styles = StyleSheet.create({
   topic: {
     textAlign: 'center',
@@ -67,8 +86,12 @@ const styles = StyleSheet.create({
      borderWidth: .5,
      alignItems: 'center',
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> dev
      padding: 15,
+=======
+     padding: 10,
+>>>>>>> dev
 =======
      padding: 10,
 >>>>>>> dev
