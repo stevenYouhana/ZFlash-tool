@@ -12,7 +12,7 @@ const AddVerse = props => {
     title: {
       color: 'white',
       fontSize: 16,
-      paddingBottom: 5
+      paddingBottom: 10
     },
     addVerseHolder : {
       flexDirection: 'row',
@@ -35,8 +35,7 @@ const AddVerse = props => {
   });
 
   return(
-    <View style={styles.container}>
-      <Text style={styles.title}>{`add a new verse for ${props.topic}`}</Text>
+    <View style={styles.container}>      
       <View style={styles.addVerseHolder}>
         <TextInput
           style={styles.textField}

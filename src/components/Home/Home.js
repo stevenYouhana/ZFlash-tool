@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, SafeAreaView, TextInput, Button, Keyboard, ScrollView } from 'react-native';
+import { Platform, StyleSheet, Text, View, SafeAreaView, TextInput, Button,
+   Keyboard, ScrollView, Dimensions } from 'react-native';
 import Database from '../../database/Database';
 import Topics from '../Topics/Topics';
 import Verses from '../Verses/Verses';
@@ -24,8 +25,10 @@ export default class Home extends React.Component {
       this.setState({ rawVerses: results[0].verses })
     });
   }
-  refreshVerse = () => {
-
+  refreshVerses = (topic) => {
+    db.findTopic(topic).then(results => {
+      this.setState({ rawVerses: results[0].verses })
+    });
   }
   componentWillUnmount() {
     this.keyboardDidShowListener.remove();
@@ -60,7 +63,8 @@ export default class Home extends React.Component {
           <View style={styles.versesView}>
             <Verses editMode={this.state.editMode}
             topic={this.state.topic}
-            rawVerses={this.state.rawVerses} />
+            rawVerses={this.state.rawVerses}
+            refreshVerses={this.refreshVerses} />
           </View>
         </View>
       </SafeAreaView>
@@ -68,22 +72,35 @@ export default class Home extends React.Component {
   }
 }
 
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
+  container: {
+    // flex: 1,
+    alignItems: 'center',
+    flexDirection: 'column',
+    // backgroundColor: '#F5FCFF',
+    width: width,
+    // height: height
+  },
   title: {
+    height: height * .08,
     fontSize: 20,
     fontWeight: 'bold',
-    padding: 10
-  },
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    padding: 15,
+    backgroundColor: 'lightyellow'
   },
   topicsView: {
-    height: 280
+    height: height * .39,
+    // height: 100,
+    paddingBottom: 1,
+    // width: width,
   },
   versesView: {
-    // height: 260,
-    alignItems: 'center'
+    height: height * .6,
+    marginTop: 5,
+    alignItems: 'center',
+    // width: width,
   },
 });

@@ -17,7 +17,7 @@ const Topic = props => {
         { text: 'Yes',
           onPress: () => {
             db.deleteATopic(props.topicName);
-            setTimeout(() => props.updateParentData(props.topicName), 500);  
+            setTimeout(() => props.updateParentData(props.topicName), 500);
           }
         },
         { text: 'No', onPress: () => console.log('No Pressed') },
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
      borderStyle: 'solid',
      borderWidth: .5,
      alignItems: 'center',
-     padding: 15,
+     padding: 10,
      backgroundColor: 'lightblue'
   },
 });

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity  } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Dimensions  } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Topic from './Topic';
 import AddTopic from '../Topics/AddTopic';
 import Database from '../../database/Database';
-import AddTopicModal from '../Utility/AddTopicModal';
+import AddModal from '../Utility/AddModal';
 
 const db = new Database();
 
@@ -25,7 +25,7 @@ export default class Topics extends React.Component {
              textKey={`textKey${i}`} topicName={topic}
              handleTopic={this.props.handleTopic} updateParentData={this.updateUponRemoval} />
          );
-       }) : <Text style={styles.noTopicsLoded}>{'no topics loaded...\nClick To load topic'}</Text>
+       }) : <Text style={styles.noTopicsLoded}>{'no topics loaded...\nClick the plus button to load a topic'}</Text>
   }
   handleNewTopic(topic) {
     if (!topic || topic === '') {
@@ -63,10 +63,11 @@ export default class Topics extends React.Component {
   }
   render() {
     return(
-      <View>
-      <AddTopicModal visiblity={this.state.AddTopicVisibility}
+      <View style={styles.container}>
+      <AddModal visiblity={this.state.AddTopicVisibility}
       hide={this.hideAddTopicVisibility}
       handleNewTopic={this.handleNewTopic}
+      title="Add new topics"
       purpose={() => <AddTopic handleNewTopic={this.handleNewTopic} />} />
         <View style={styles.headerView}>
           <Ionicons name="md-add-circle" style={styles.addVeiw} size={40} color="#76c740"
@@ -81,25 +82,31 @@ export default class Topics extends React.Component {
     );
   }
 }
+const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
+  container: {
+    width: width,
+    flex: 1,
+    alignItems: 'center'
+  },
   headerView: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    paddingTop: 8,
+    width: width,
+    alignItems: 'flex-start',
   },
   topicsView: {
     width: 300,
-    padding: 15,
+    padding: 5,
     // height: 120,
-    backgroundColor: 'lightyellow'
+    // backgroundColor: 'lightyellow'
   },
   verseViewHeading: {
-    fontSize: 16,
+    fontSize: 20,
     marginLeft: 20,
     padding: 5,
     paddingTop: 10,
-    color: 'rgba(0, 0, 0, .5)',
+    color: 'rgba(0, 0, 0, .7)',
   },
   noTopicsLoded: {
     fontSize: 19,
@@ -109,7 +116,7 @@ const styles = StyleSheet.create({
     borderWidth: .4
   },
   addVeiw: {
-    paddingLeft: 0,
+    paddingLeft: 10,
     paddingBottom: 4
   },
 });

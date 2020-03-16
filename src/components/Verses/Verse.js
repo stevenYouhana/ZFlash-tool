@@ -10,7 +10,10 @@ const Verse = (props) => {
       `Are you sure you want to delete ${props.verseRef} from ${props.topic}?`,
       [
         { text: 'Yes',
-          onPress: () => db.deleteAVerseFrom(props.topic, props.verseRef)
+          onPress: () => {
+            db.deleteAVerseFrom(props.topic, props.verseRef);
+            setTimeout(() => props.refreshVerses(props.topic), 500);
+          }
         },
         { text: 'No', onPress: () => console.log('No Pressed') },
       ],
@@ -20,7 +23,9 @@ const Verse = (props) => {
   return(
     <TouchableOpacity style={styles.verseView} onPress={
       () => props.handleVerse(props.verseRef)}
-      onLongPress={() => deleteVerse()}>
+      onLongPress={() => {
+        deleteVerse();
+      }}>
       <Text>{props.verseRef}</Text>
     </TouchableOpacity>
   );
