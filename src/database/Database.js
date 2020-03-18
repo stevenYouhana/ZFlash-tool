@@ -73,7 +73,7 @@ export default class Database {
      return results[0].verses;
    }).then(currentVerses => {
      const updatedVerses = currentVerses.replace(`|${verseRef}`, '');
-     console.log("updatedVerses: ",updatedVerses+"END")
+     // console.log("updatedVerses: ",updatedVerses+"END")
      db.transaction(tx => {
        tx.executeSql(
          `UPDATE topics SET verses = '${updatedVerses}' WHERE topicName = '${topic}'`,

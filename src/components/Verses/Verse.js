@@ -32,12 +32,17 @@ const Verse = (props) => {
 }
 const styles = StyleSheet.create({
   verseView: {
+
     padding: 9,
+    marginBottom: 1,
     borderStyle: 'solid',
-    borderWidth: .2,
-    borderBottomWidth: 1.2,
-    borderLeftWidth: 1.2
-    // backgroundColor: '#A1F792'
+    borderColor: 'rgba(0, 0, 0, .5)',
+    borderWidth: .3,
+    borderBottomWidth: 1.8,
+    borderLeftWidth: 1.8,
+    backgroundColor: 'lightyellow',
+
+
   }
 });
 export default Verse;

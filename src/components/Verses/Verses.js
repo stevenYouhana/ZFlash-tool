@@ -61,7 +61,7 @@ export default class Verses extends React.Component {
           hide={this.hideAddVerseVisibility}
           handleNewTopic={this.handleNewTopic}
           title={this.props.topic ? `Add a new verse for <${this.props.topic}>` :
-            'First Select a topic'}
+            'First, select a topic'}
           purpose={() => <AddVerse topic={this.props.topic}
           handleNewVerse={this.handleNewVerse} />} />
           <View style={styles.headerView}>
@@ -69,11 +69,12 @@ export default class Verses extends React.Component {
             onPress={() => this.setState({AddVerseVisibility: true })} />
             <View style={{width: 250, height: 50, padding: 10}}>
               <Text style={styles.verseViewHeading}
-              adjustsFontSizeToFit
-              numberOfLines={2}
-              allowFontScaling>
-                {this.props.topic ?
-                  formatTopicName(this.props.topic) : 'select a topic'}</Text>
+                adjustsFontSizeToFit
+                numberOfLines={2}
+                allowFontScaling>
+                  {this.props.topic ?
+                    formatTopicName(this.props.topic) : 'select a topic'}
+             </Text>
             </View>
           </View>
           <View style={styles.versesOverall}>
@@ -95,48 +96,57 @@ const height = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   mainView: {
-    flexDirection: 'column'
+    flex: 1,
+    flexDirection: 'column',
+    width: width,
   },
   headerView: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-  },
-  verseViewHeading: {
-    fontSize: 15,
-    marginLeft: 20,
-    paddingTop: 5,
-    color: 'rgba(0, 0, 0, .7)',
-  },
-  versesOverall: {
     flex: 1,
     flexDirection: 'row',
+    justifyContent: 'flex-start',
+    marginBottom: 5,
+    marginTop: 10,
+  },
+  verseViewHeading: {
+    fontSize: 18,
+    marginLeft: 20,
+    // paddingBottom: 5,
+    paddingTop: 12,
+    color: 'rgba(0, 0, 0, .5)',
+  },
+  addVeiw: {
+    paddingLeft: 10,
+    paddingTop: 15
+  },
+  versesOverall: {
+    flex: 6,
+    flexDirection: 'row',
+    // paddingTop: 5,
+    bottom: 1,
   },
   verseReferences: {
+    // flex: 1,
+    paddingLeft: 5,
     borderStyle: 'dotted',
+    borderWidth: .3,
     borderRightWidth: .8,
     width: width * .3,
-    height: height * .8,
+    // height: height * .8,
     padding: 2,
     backgroundColor: '#ede5d5',
-    marginBottom: 40,
   },
   verseContent: {
     backgroundColor: 'lightyellow',
     width: width * .70,
-    height: height * .8,
-    paddingBottom: 0,
     borderStyle: 'solid',
     borderWidth: .3,
     marginRight: 1,
+    padding: 2,
   },
   verse: {
     fontSize: 15,
     paddingBottom: 10,
     marginBottom: 10,
     padding: 5
-  },
-  addVeiw: {
-    paddingLeft: 10,
-    paddingBottom: 4
   },
 });

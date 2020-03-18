@@ -25,12 +25,13 @@ export default class Topics extends React.Component {
              textKey={`textKey${i}`} topicName={topic}
              handleTopic={this.props.handleTopic} updateParentData={this.updateUponRemoval} />
          );
-       }) : <Text style={styles.noTopicsLoded}>{'no topics loaded...\nClick the plus button to load a topic'}</Text>
+       }) : <Text style={styles.noTopicsLoded}>{'no topics loaded...\nClick the top plus button to load a topic'}</Text>
   }
   handleNewTopic(topic) {
     if (!topic || topic === ''|| !/\w/.test(topic)) return;
     db.add(topic);
-    this.setState( {topics: [...this.state.topics, topic]} );
+    if (!this.state.topics.some(el => el.toLowerCase() === topic.toLowerCase()))
+      this.setState( {topics: [...this.state.topics, topic]} );
   }
   updateUponRemoval(topicRemoved) {
     this.setState({ topics: this.state.topics.filter(el => el !== topicRemoved) });
@@ -62,11 +63,12 @@ export default class Topics extends React.Component {
   render() {
     return(
       <View style={styles.container}>
-      <AddModal visiblity={this.state.AddTopicVisibility}
-      hide={this.hideAddTopicVisibility}
-      handleNewTopic={this.handleNewTopic}
-      title="Add new topics"
-      purpose={() => <AddTopic handleNewTopic={this.handleNewTopic} />} />
+        <AddModal visiblity={this.state.AddTopicVisibility}
+          hide={this.hideAddTopicVisibility}
+          handleNewTopic={this.handleNewTopic}
+          title="Add new topics"
+          purpose={() => <AddTopic handleNewTopic={this.handleNewTopic} />}
+        />
         <View style={styles.headerView}>
           <Ionicons name="md-add-circle" style={styles.addVeiw} size={35} color="#76c740"
           onPress={() => this.setState({ AddTopicVisibility:true })} />
@@ -84,7 +86,7 @@ const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {
-    width: width,
+    // width: width,
     flex: 1,
     alignItems: 'center'
   },
@@ -95,15 +97,18 @@ const styles = StyleSheet.create({
   },
   topicsView: {
     width: 300,
-    padding: 5,
+    borderStyle: 'solid',
+    borderWidth: .6,
+    borderColor: 'rgba(0, 0, 0, .5)',
+    padding: 1,
     backgroundColor: 'lightyellow'
   },
   verseViewHeading: {
-    fontSize: 20,
+    fontSize: 18,
     marginLeft: 20,
     padding: 5,
     paddingTop: 10,
-    color: 'rgba(0, 0, 0, .7)',
+    color: 'rgba(0, 0, 0, .5)',
   },
   noTopicsLoded: {
     fontSize: 19,
