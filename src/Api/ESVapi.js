@@ -23,6 +23,14 @@
       })
      }).then(response => {
       return response.json();
-    }).then(jsonResponse => jsonResponse.passages[0]);
+    }).then(jsonResponse => {      
+      if (!jsonResponse.passages[0] || jsonResponse.passages[0] === '')
+        throw new Error("API error")
+      return jsonResponse.passages[0];
+    })
+      .catch(err => {
+        console.log("error finding verse");
+        throw new Error("error finding verse");
+      });
   }
  }

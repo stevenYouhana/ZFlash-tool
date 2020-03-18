@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, SafeAreaView, TextInput, Button,
    Keyboard, ScrollView, Dimensions } from 'react-native';
+import { Constants, ScreenOrientation } from 'expo';
+
 import Database from '../../database/Database';
 import Topics from '../Topics/Topics';
 import Verses from '../Verses/Verses';
@@ -20,9 +22,13 @@ export default class Home extends React.Component {
     this.handleTopic = this.handleTopic.bind(this);
   }
   handleTopic(topic) {
-    this.setState({topic: topic});
-    db.findTopic(topic).then(results => {
+    const formated = topic.trim().toLowerCase();
+    this.setState({ topic:  formated });
+    db.findTopic(formated).then(results => {      
       this.setState({ rawVerses: results[0].verses })
+    }).catch(err => {
+      console.error("handleTopic(topic) > db.findTopic(formated).then(results =>");
+      Alert("handleTopic(topic) error. Contact developer");
     });
   }
   refreshVerses = (topic) => {
@@ -41,6 +47,7 @@ export default class Home extends React.Component {
     this.setState({ keyboardHidden: true, keyboardOffset: 0 });
   }
   componentDidMount() {
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
     db.initDB();
     this.keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',

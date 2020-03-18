@@ -11,21 +11,26 @@ import { Ionicons } from '@expo/vector-icons';
 const db = new Database();
 const esv = new ESVapi();
 
+const API_ERR = 'API error';
+
 export default class Verses extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       verse: '',
-      verses: [],
       AddVerseVisibility: false
     };
     this.renderVerses = this.renderVerses.bind(this);
     this.handleVerse = this.handleVerse.bind(this);
+    this.renderScripture = this.renderScripture.bind(this);
     this.handleNewVerse = this.handleNewVerse.bind(this);
   }
   handleVerse(verseRef) {
     this.setState({ verse: 'loading ...' });
-    esv.fetch(verseRef).then(verse => this.setState({ verse }));
+    esv.fetch(verseRef).then(verse => this.setState({ verse }))
+      .catch(err => {
+        this.setState({ verse: API_ERR });        
+      });
   }
   renderVerses() {
     return this.props.rawVerses ?
@@ -45,6 +50,20 @@ export default class Verses extends React.Component {
        this.props.refreshVerses(this.props.topic);
        this.renderVerses();
      }, 500);
+  }
+  renderScripture() {
+    if (this.state.verse === API_ERR) {
+        return(
+          <Text style={styles.verseNotFound}>Trouble finding verse; either due to a bad internet connection or an incorrect verse reference spelling ...</Text>
+        );
+    }
+    else {
+      return(
+        <Text style={styles.verse}>{this.state.verse ? this.state.verse
+          : 'select a verse ...'}</Text>
+      );
+    }
+
   }
   hideAddVerseVisibility = () => {
     this.setState({ AddVerseVisibility: false });
@@ -82,8 +101,7 @@ export default class Verses extends React.Component {
               {this.renderVerses()}
             </ScrollView>
             <ScrollView style={styles.verseContent}>
-              <Text style={styles.verse}>{this.state.verse ? this.state.verse
-                : 'select a verse ...'}</Text>
+              {this.renderScripture()}
             </ScrollView>
           </View>
       </View>
@@ -149,4 +167,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 5
   },
+  verseNotFound: {
+    color: 'rgba(255, 0, 0, .5)',
+    borderStyle: 'dotted',
+    borderWidth: 1,
+    borderRadius: 1,
+    borderColor: 'red',
+    padding: 20,
+    fontStyle: 'italic'
+  }
 });

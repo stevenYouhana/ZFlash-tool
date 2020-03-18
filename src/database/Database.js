@@ -66,6 +66,9 @@ export default class Database {
          null
        );
      });
+   }).catch(err => {
+     console.log("addVerseFor(topic, newVerse): ",err.message)
+     Alert("Database error. Contact developer");
    })
  }
  deleteAVerseFrom(topic, verseRef) {
