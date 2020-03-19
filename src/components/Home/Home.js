@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, SafeAreaView, TextInput, Button,
-   Keyboard, ScrollView, Dimensions } from 'react-native';
+import { Text, View, SafeAreaView, TextInput, Button,
+   Keyboard, ScrollView } from 'react-native';
+import { Constants, ScreenOrientation } from 'expo';
+import Styles from './Styles.js';
+
 import Database from '../../database/Database';
 import Topics from '../Topics/Topics';
 import Verses from '../Verses/Verses';
@@ -20,9 +23,13 @@ export default class Home extends React.Component {
     this.handleTopic = this.handleTopic.bind(this);
   }
   handleTopic(topic) {
-    this.setState({topic: topic});
-    db.findTopic(topic).then(results => {
+    const formated = topic.trim().toLowerCase();
+    this.setState({ topic:  formated });
+    db.findTopic(formated).then(results => {
       this.setState({ rawVerses: results[0].verses })
+    }).catch(err => {
+      console.error("handleTopic(topic) > db.findTopic(formated).then(results =>");
+      Alert("handleTopic(topic) error. Contact developer");
     });
   }
   refreshVerses = (topic) => {
@@ -41,6 +48,7 @@ export default class Home extends React.Component {
     this.setState({ keyboardHidden: true, keyboardOffset: 0 });
   }
   componentDidMount() {
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
     db.initDB();
     this.keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
@@ -53,54 +61,19 @@ export default class Home extends React.Component {
   }
   render() {
     return(
-      <SafeAreaView>
-        <View style={styles.container}>
-          <Text style={styles.title}>Z Flash</Text>
-          <View style={styles.topicsView}>
+      <SafeAreaView style={Styles.container}>
+        <Text style={Styles.title}>Z Flash</Text>
+        <View style={Styles.topicsView}>
             <Topics editMode={this.state.editMode} handleTopic={this.handleTopic}
             keyboardHidden={this.state.keyboardHidden} />
-          </View>
-          <View style={styles.versesView}>
+        </View>
+        <View style={Styles.versesView}>
             <Verses editMode={this.state.editMode}
             topic={this.state.topic}
             rawVerses={this.state.rawVerses}
             refreshVerses={this.refreshVerses} />
           </View>
-        </View>
       </SafeAreaView>
     );
   }
 }
-
-const height = Dimensions.get('window').height;
-const width = Dimensions.get('window').width;
-
-const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    alignItems: 'center',
-    flexDirection: 'column',
-    // backgroundColor: '#F5FCFF',
-    width: width,
-    // height: height
-  },
-  title: {
-    height: height * .08,
-    fontSize: 20,
-    fontWeight: 'bold',
-    padding: 15,
-    backgroundColor: 'lightyellow'
-  },
-  topicsView: {
-    height: height * .39,
-    // height: 100,
-    paddingBottom: 1,
-    // width: width,
-  },
-  versesView: {
-    height: height * .6,
-    marginTop: 5,
-    alignItems: 'center',
-    // width: width,
-  },
-});

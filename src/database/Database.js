@@ -57,7 +57,7 @@ export default class Database {
  addVerseFor(topic, newVerse) {
    this.findTopic(topic).then(results => {
      return results[0].verses ? `${results[0].verses}|${newVerse.trim()}` :
-      newVerse.trim();
+      `|${newVerse.trim()}`;
    }).then((totalVerses) => {
      db.transaction(tx => {
        tx.executeSql(
@@ -66,6 +66,9 @@ export default class Database {
          null
        );
      });
+   }).catch(err => {
+     console.log("addVerseFor(topic, newVerse): ",err.message)
+     Alert("Database error. Contact developer");
    })
  }
  deleteAVerseFrom(topic, verseRef) {
@@ -73,7 +76,7 @@ export default class Database {
      return results[0].verses;
    }).then(currentVerses => {
      const updatedVerses = currentVerses.replace(`|${verseRef}`, '');
-     console.log("updatedVerses: ",updatedVerses+"END")
+     // console.log("updatedVerses: ",updatedVerses+"END")
      db.transaction(tx => {
        tx.executeSql(
          `UPDATE topics SET verses = '${updatedVerses}' WHERE topicName = '${topic}'`,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View, Dimensions } from 'react-native';
 import Home from './src/components/Home/Home';
 
 const instructions = Platform.select({
@@ -16,11 +16,12 @@ export default class App extends Component {
     );
   }
 }
-
+const width = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   container: {
-    flex: 1,        
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    flex: 1,    
+    // alignSelf: 'stretch',
+    // alignItems: 'center',
+    // backgroundColor: '#F5FCFF',
   },
 });

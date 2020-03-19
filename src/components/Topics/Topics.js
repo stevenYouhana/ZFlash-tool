@@ -5,6 +5,7 @@ import Topic from './Topic';
 import AddTopic from '../Topics/AddTopic';
 import Database from '../../database/Database';
 import AddModal from '../Utility/AddModal';
+import Styles from './Styles/Styles';
 
 const db = new Database();
 
@@ -25,14 +26,13 @@ export default class Topics extends React.Component {
              textKey={`textKey${i}`} topicName={topic}
              handleTopic={this.props.handleTopic} updateParentData={this.updateUponRemoval} />
          );
-       }) : <Text style={styles.noTopicsLoded}>{'no topics loaded...\nClick the plus button to load a topic'}</Text>
+       }) : <Text style={Styles.noTopicsLoded}>{'no topics loaded...\nClick the top plus button to load a topic'}</Text>
   }
   handleNewTopic(topic) {
-    if (!topic || topic === '') {
-      return;
-    }
+    if (!topic || topic === ''|| !/\w/.test(topic)) return;
     db.add(topic);
-    this.setState( {topics: [...this.state.topics, topic]} );
+    if (!this.state.topics.some(el => el.toLowerCase() === topic.toLowerCase()))
+      this.setState( {topics: [...this.state.topics, topic]} );
   }
   updateUponRemoval(topicRemoved) {
     this.setState({ topics: this.state.topics.filter(el => el !== topicRemoved) });
@@ -63,60 +63,24 @@ export default class Topics extends React.Component {
   }
   render() {
     return(
-      <View style={styles.container}>
-      <AddModal visiblity={this.state.AddTopicVisibility}
-      hide={this.hideAddTopicVisibility}
-      handleNewTopic={this.handleNewTopic}
-      title="Add new topics"
-      purpose={() => <AddTopic handleNewTopic={this.handleNewTopic} />} />
-        <View style={styles.headerView}>
-          <Ionicons name="md-add-circle" style={styles.addVeiw} size={40} color="#76c740"
+      <View style={Styles.container}>
+        <AddModal visiblity={this.state.AddTopicVisibility}
+          hide={this.hideAddTopicVisibility}
+          handleNewTopic={this.handleNewTopic}
+          title="Add new topics"
+          purpose={() => <AddTopic handleNewTopic={this.handleNewTopic} />}
+        />
+        <View style={Styles.headerView}>
+          <Ionicons name="md-add-circle" style={Styles.addVeiw} size={35}
+          color="rgba(111, 209, 58, .7)"
           onPress={() => this.setState({ AddTopicVisibility:true })} />
-          <Text style={styles.verseViewHeading}>Topics</Text>
+          <Text style={Styles.verseViewHeading}>Topics</Text>
         </View>
 
-        <ScrollView style={styles.topicsView}>
+        <ScrollView style={Styles.topicsView}>
           {this.getTopics()}
         </ScrollView>
       </View>
     );
   }
 }
-const width = Dimensions.get('window').width;
-
-const styles = StyleSheet.create({
-  container: {
-    width: width,
-    flex: 1,
-    alignItems: 'center'
-  },
-  headerView: {
-    flexDirection: 'row',
-    width: width,
-    alignItems: 'flex-start',
-  },
-  topicsView: {
-    width: 300,
-    padding: 5,
-    // height: 120,
-    // backgroundColor: 'lightyellow'
-  },
-  verseViewHeading: {
-    fontSize: 20,
-    marginLeft: 20,
-    padding: 5,
-    paddingTop: 10,
-    color: 'rgba(0, 0, 0, .7)',
-  },
-  noTopicsLoded: {
-    fontSize: 19,
-    padding: 20,
-    color: 'rgba(0,0,0,0.5)',
-    borderStyle: 'dotted',
-    borderWidth: .4
-  },
-  addVeiw: {
-    paddingLeft: 10,
-    paddingBottom: 4
-  },
-});

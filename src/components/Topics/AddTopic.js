@@ -12,14 +12,17 @@ const AddTopic = props => {
         placeholder="Topic name"
         onChangeText={text => topic = text}
         value={topic}
+        required
       />
       <View style={styles.buttonView}>
         <Button title="Add"
         onPress={() => {
+          if (!topic) alert("insert a topic name");
           props.handleNewTopic(topic)
           textInput.clear()
           topic = null;
-        }} />
+        }}
+        />
       </View>
     </View>
   );

@@ -15,7 +15,7 @@ const Verse = (props) => {
             setTimeout(() => props.refreshVerses(props.topic), 500);
           }
         },
-        { text: 'No', onPress: () => console.log('No Pressed') },
+        { text: 'No', onPress: () => null },
       ],
       { cancelable: false }
     );
@@ -26,11 +26,7 @@ const Verse = (props) => {
       onLongPress={() => {
         deleteVerse();
       }}>
-
-      onLongPress={() => {
-        deleteVerse();
-      }}>
-      <Text>{props.verseRef}</Text>
+      <Text style={{color: 'black'}}>{props.verseRef}</Text>
     </TouchableOpacity>
   );
 }
@@ -38,11 +34,14 @@ const styles = StyleSheet.create({
   verseView: {
 
     padding: 9,
+    marginBottom: 1,
     borderStyle: 'solid',
-    borderWidth: .2,
-    borderBottomWidth: 1.2,
-    borderLeftWidth: 1.2
-    // backgroundColor: '#A1F792'
+    borderColor: 'rgba(0, 0, 0, .5)',
+    borderWidth: .3,
+    borderBottomWidth: 1.8,
+    borderLeftWidth: 1.8,
+    // backgroundColor: 'rgba(245, 191, 166, .8)',
+    backgroundColor: 'rgba(247, 237, 164, .6)'
   }
 });
 export default Verse;

@@ -1,50 +1,75 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, ScrollView, Dimensions,SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Dimensions,SafeAreaView } from 'react-native';
 import Verse from './Verse';
 import AddVerse from './AddVerse';
 import AddModal from '../Utility/AddModal';
 import Database from '../../database/Database';
 import ESVapi from '../../Api/ESVapi';
+import Styles from './Styles/Styles';
 
 import { Ionicons } from '@expo/vector-icons';
-// import { Overlay } from 'react-native-elements';
 
 const db = new Database();
 const esv = new ESVapi();
+
+const API_ERR = 'API error';
 
 export default class Verses extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       verse: '',
-      verses: [],
       AddVerseVisibility: false
     };
     this.renderVerses = this.renderVerses.bind(this);
     this.handleVerse = this.handleVerse.bind(this);
+    this.renderScripture = this.renderScripture.bind(this);
     this.handleNewVerse = this.handleNewVerse.bind(this);
   }
   handleVerse(verseRef) {
-    esv.fetch(verseRef).then(verse => this.setState({ verse }));
+    this.setState({ verse: 'loading ...' });
+    esv.fetch(verseRef).then(verse => this.setState({ verse }))
+      .catch(err => {
+        this.setState({ verse: API_ERR });
+      });
   }
   renderVerses() {
     return this.props.rawVerses ?
-      this.props.rawVerses.split('|').map((verse, i) => {
-        return(
-          <Verse key={`${verse}${i}`} verseRef={verse}
-          handleVerse={this.handleVerse} topic={this.props.topic}
-          refreshVerses={this.props.refreshVerses} />
-        );
-      }) :  <Text>No verses loaded yet ...</Text>
+      this.props.rawVerses.split('|').filter(el => el !== '')
+        .map( (verse, i) => {
+          return(
+            <Verse key={`${verse}${i}`} verseRef={verse}
+            handleVerse={this.handleVerse} topic={this.props.topic}
+            refreshVerses={this.props.refreshVerses} />
+          );
+        }):  <Text>No verses loaded yet ...</Text>
   }
   handleNewVerse(newVerse) {
-    console.log("handleNewVerse(newVerse) for ", this.props.topic)
-    if (!newVerse || newVerse === '') return;
+    if (!newVerse || newVerse === ''|| !/\w/.test(newVerse)) return;
+    if (newVerse.split('').includes('|')) {
+      console.log("Cannot contain the '|' character in verse.")
+      alert("Cannot contain the '|' character in verse.");
+      return;
+    }
      db.addVerseFor(this.props.topic, newVerse);
      setTimeout(() => {
        this.props.refreshVerses(this.props.topic);
        this.renderVerses();
      }, 500);
+  }
+  renderScripture() {
+    if (this.state.verse === API_ERR) {
+        return(
+          <Text style={Styles.verseNotFound}>
+          Trouble finding verse; either due to a bad internet connection or an incorrect verse reference spelling ...
+          </Text>
+        );
+    }
+    else {
+      return this.state.verse ? <Text style={Styles.verse}>{this.state.verse}</Text>
+        : <Text style={Styles.noVerseSelected}>Select a verse ...</Text>
+    }
+
   }
   hideAddVerseVisibility = () => {
     this.setState({ AddVerseVisibility: false });
@@ -56,84 +81,36 @@ export default class Verses extends React.Component {
           topic.slice(1, topic.length).toLowerCase();
     }
     return(
-      <View style={styles.mainView}>
+      <View style={Styles.mainView}>
         <AddModal visiblity={this.state.AddVerseVisibility}
           hide={this.hideAddVerseVisibility}
           handleNewTopic={this.handleNewTopic}
-          title={`Add a new verse for ${this.props.topic}`}
+          title={this.props.topic ? `Add verses for <${this.props.topic}>` :
+            'First, select a topic'}
           purpose={() => <AddVerse topic={this.props.topic}
           handleNewVerse={this.handleNewVerse} />} />
-          <View style={styles.headerView}>
-            <Ionicons name="md-add-circle" style={styles.addVeiw} size={40} color="#76c740"
+          <View style={Styles.headerView}>
+            <Ionicons name="md-add-circle" style={Styles.addVeiw} size={35} color="rgba(111, 209, 58, .7)"
             onPress={() => this.setState({AddVerseVisibility: true })} />
             <View style={{width: 250, height: 50, padding: 10}}>
-              <Text style={styles.verseViewHeading}
-              adjustsFontSizeToFit
-              numberOfLines={2}
-              allowFontScaling>
-                {this.props.topic ?
-                  formatTopicName(this.props.topic) : 'select a topic'}</Text>
+              <Text style={Styles.verseViewHeading}
+                adjustsFontSizeToFit
+                numberOfLines={2}
+                allowFontScaling>
+                  {this.props.topic ?
+                    formatTopicName(this.props.topic) : 'select a topic'}
+             </Text>
             </View>
           </View>
-          <View style={styles.versesOverall}>
-            <ScrollView style={styles.verseReferences}>
+          <View style={Styles.versesOverall}>
+            <ScrollView style={Styles.verseReferences}>
               {this.renderVerses()}
             </ScrollView>
-            <ScrollView style={styles.verseContent}>
-              <Text style={styles.verse}>{this.state.verse}</Text>
+            <ScrollView style={Styles.verseContent}>
+              {this.renderScripture()}
             </ScrollView>
           </View>
       </View>
     );
   }
 }
-
-const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').width;
-
-const styles = StyleSheet.create({
-  mainView: {
-    flexDirection: 'column'
-  },
-  headerView: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-  },
-  verseViewHeading: {
-    fontSize: 15,
-    marginLeft: 20,
-    paddingTop: 5,
-    color: 'rgba(0, 0, 0, .7)',
-  },
-  versesOverall: {
-    flex: 1,
-    flexDirection: 'row',
-    marginBottom: 5,
-    // height: height * .7,
-  },
-  verseReferences: {
-    borderStyle: 'dotted',
-    borderRightWidth: .8,
-    width: width * .30,
-    padding: 2,
-    backgroundColor: '#ede5d5'
-  },
-  verseContent: {
-    backgroundColor: 'lightyellow',
-    width: width * .70,
-    // height: 100,
-    paddingBottom: 0,
-    borderStyle: 'solid',
-    borderWidth: .3,
-    marginRight: 1,
-  },
-  verse: {
-    fontSize: 16,
-    paddingBottom: 10,
-    marginBottom: 10
-  },
-  addVeiw: {
-    paddingLeft: 10,
-    paddingBottom: 4
-  },
-});
