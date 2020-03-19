@@ -39,7 +39,7 @@ const AddVerse = props => {
         <TextInput
           style={styles.textField}
           ref={input => { textInput = input }}
-          placeholder={props.topic ? "e.g. Jn 1: 1" : ""}
+          placeholder={props.topic ? "e.g. Jn 1: 1-5" : ""}
           onChangeText={text => verse = text}
           value={verse}
           editable={props.topic ? true : false}

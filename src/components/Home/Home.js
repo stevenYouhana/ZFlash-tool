@@ -24,7 +24,7 @@ export default class Home extends React.Component {
   handleTopic(topic) {
     const formated = topic.trim().toLowerCase();
     this.setState({ topic:  formated });
-    db.findTopic(formated).then(results => {      
+    db.findTopic(formated).then(results => {
       this.setState({ rawVerses: results[0].verses })
     }).catch(err => {
       console.error("handleTopic(topic) > db.findTopic(formated).then(results =>");
@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    backgroundColor: 'rgba(237, 237, 164, .1)',
     // flexDirection: 'column',
     // width: width,
   },
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     paddingRight: 120,
     borderBottomRightRadius: 5,
     borderBottomLeftRadius: 5,
-    backgroundColor: 'rgba(217, 116, 76, .07)'
+    backgroundColor: 'rgba(217, 116, 76, .09)'
   },
   topicsView: {
     flex: 7,

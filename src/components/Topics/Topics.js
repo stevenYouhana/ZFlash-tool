@@ -70,7 +70,7 @@ export default class Topics extends React.Component {
           purpose={() => <AddTopic handleNewTopic={this.handleNewTopic} />}
         />
         <View style={styles.headerView}>
-          <Ionicons name="md-add-circle" style={styles.addVeiw} size={35} color="#76c740"
+          <Ionicons name="md-add-circle" style={styles.addVeiw} size={35} color="rgba(111, 209, 58, .8)"
           onPress={() => this.setState({ AddTopicVisibility:true })} />
           <Text style={styles.verseViewHeading}>Topics</Text>
         </View>

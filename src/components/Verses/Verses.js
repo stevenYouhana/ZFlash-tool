@@ -29,7 +29,7 @@ export default class Verses extends React.Component {
     this.setState({ verse: 'loading ...' });
     esv.fetch(verseRef).then(verse => this.setState({ verse }))
       .catch(err => {
-        this.setState({ verse: API_ERR });        
+        this.setState({ verse: API_ERR });
       });
   }
   renderVerses() {
@@ -45,6 +45,11 @@ export default class Verses extends React.Component {
   }
   handleNewVerse(newVerse) {
     if (!newVerse || newVerse === ''|| !/\w/.test(newVerse)) return;
+    if (newVerse.split('').includes('|')) {
+      console.log("Cannot contain the '|' character in verse.")
+      alert("Cannot contain the '|' character in verse.");
+      return;
+    }
      db.addVerseFor(this.props.topic, newVerse);
      setTimeout(() => {
        this.props.refreshVerses(this.props.topic);
@@ -84,7 +89,7 @@ export default class Verses extends React.Component {
           purpose={() => <AddVerse topic={this.props.topic}
           handleNewVerse={this.handleNewVerse} />} />
           <View style={styles.headerView}>
-            <Ionicons name="md-add-circle" style={styles.addVeiw} size={35} color="#76c740"
+            <Ionicons name="md-add-circle" style={styles.addVeiw} size={35} color="rgba(111, 209, 58, .8)"
             onPress={() => this.setState({AddVerseVisibility: true })} />
             <View style={{width: 250, height: 50, padding: 10}}>
               <Text style={styles.verseViewHeading}
@@ -154,7 +159,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ede5d5',
   },
   verseContent: {
-    backgroundColor: 'lightyellow',
+    backgroundColor: 'rgba(237, 237, 164, .2)',
     width: width * .70,
     borderStyle: 'solid',
     borderWidth: .3,

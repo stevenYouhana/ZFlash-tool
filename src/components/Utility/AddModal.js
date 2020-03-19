@@ -11,7 +11,7 @@ const AddModal = (props) => {
             visible={props.visiblity}
             >
             <View style={styles.container}>
-              <Ionicons name="md-checkmark" size={28} color="green"
+              <Ionicons name="md-remove" size={60} color="white"
               style={styles.close} onPress={() => props.hide()} />
               <View style={styles.AddTopic}>
                 <Text style={styles.title}>{props.title}</Text>
@@ -43,14 +43,17 @@ const styles = StyleSheet.create({
     paddingBottom: 10
   },
   close: {
-    backgroundColor: 'rgba(255, 255, 255, .8)',
-    marginTop: 20,
+    // backgroundColor: 'rgba(255, 255, 255, .8)',
+    // marginTop: 5,
     marginLeft: width * .7,
-    width: 45,
-    padding: 8,
-    borderStyle: 'solid',
-    borderWidth: .2,
-    borderBottomRightRadius: 10,
+    width: 35,
+    paddingTop: 2,
+    paddingBottom: 2,
+    padding: 5,
+    // borderStyle: 'solid',
+    // borderWidth: .2,
+    // borderRadius: 6,
+    // borderBottomRightRadius: 10,
   },
   AddTopic: {
     margin: 10,

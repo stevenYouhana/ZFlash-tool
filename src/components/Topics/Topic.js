@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
      borderWidth: .5,
      alignItems: 'center',
      padding: 8,
-     backgroundColor: 'lightblue'
+     backgroundColor: 'rgba(183, 224, 162, .1)',
   },
 });
 

@@ -26,13 +26,12 @@ const Verse = (props) => {
       onLongPress={() => {
         deleteVerse();
       }}>
-      <Text>{props.verseRef}</Text>
+      <Text style={{color: 'black'}}>{props.verseRef}</Text>
     </TouchableOpacity>
   );
 }
 const styles = StyleSheet.create({
   verseView: {
-
     padding: 9,
     marginBottom: 1,
     borderStyle: 'solid',
@@ -40,8 +39,7 @@ const styles = StyleSheet.create({
     borderWidth: .3,
     borderBottomWidth: 1.8,
     borderLeftWidth: 1.8,
-    backgroundColor: 'lightyellow',
-
+    backgroundColor: 'rgba(183, 224, 162, .2)',
 
   }
 });
