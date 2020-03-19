@@ -7,37 +7,19 @@ const AddVerse = props => {
   let verse;
   let textInput = React.createRef();
 
-  const styles = StyleSheet.create({
-    title: {
-      color: 'white',
-      fontSize: 16,
-      paddingBottom: 10
-    },
-    addVerseHolder : {
-      flexDirection: 'row',
-      flex: 1,
-      justifyContent: 'space-between',
-    },
-    textField: {
-      alignContent: 'flex-start',
-      height: 35,
-      width: 215,
-      borderColor: `${props.topic ? 'gray' : 'black'}`,
-      color: 'white',
-      borderWidth: 1,
-      paddingLeft: 5,
-    },
-    buttonView: {
-      width: 80,
-      height: 40,
-    }
-  });
-
   return(
     <View style={styles.container}>
       <View style={styles.addVerseHolder}>
         <TextInput
-          style={styles.textField}
+          style={{
+            alignContent: 'flex-start',
+            height: 35,
+            width: 215,
+            borderColor: `${props.topic ? 'gray' : 'black'}`,
+            color: 'white',
+            borderWidth: 1,
+            paddingLeft: 5,
+          }}
           ref={input => { textInput = input }}
           placeholder={props.topic ? "e.g. Jn 1: 1-5" : ""}
           onChangeText={text => verse = text}
@@ -56,5 +38,22 @@ const AddVerse = props => {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  title: {
+    color: 'white',
+    fontSize: 16,
+    paddingBottom: 10
+  },
+  addVerseHolder : {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'space-between',
+  },  
+  buttonView: {
+    width: 80,
+    height: 40,
+  }
+});
 
 export default AddVerse;

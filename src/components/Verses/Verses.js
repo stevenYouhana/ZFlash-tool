@@ -5,6 +5,7 @@ import AddVerse from './AddVerse';
 import AddModal from '../Utility/AddModal';
 import Database from '../../database/Database';
 import ESVapi from '../../Api/ESVapi';
+import Styles from './Styles/Styles';
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -59,14 +60,14 @@ export default class Verses extends React.Component {
   renderScripture() {
     if (this.state.verse === API_ERR) {
         return(
-          <Text style={styles.verseNotFound}>Trouble finding verse; either due to a bad internet connection or an incorrect verse reference spelling ...</Text>
+          <Text style={Styles.verseNotFound}>
+          Trouble finding verse; either due to a bad internet connection or an incorrect verse reference spelling ...
+          </Text>
         );
     }
     else {
-      return(
-        <Text style={styles.verse}>{this.state.verse ? this.state.verse
-          : 'select a verse ...'}</Text>
-      );
+      return this.state.verse ? <Text style={Styles.verse}>{this.state.verse}</Text>
+        : <Text style={Styles.noVerseSelected}>Select a verse ...</Text>
     }
 
   }
@@ -80,19 +81,19 @@ export default class Verses extends React.Component {
           topic.slice(1, topic.length).toLowerCase();
     }
     return(
-      <View style={styles.mainView}>
+      <View style={Styles.mainView}>
         <AddModal visiblity={this.state.AddVerseVisibility}
           hide={this.hideAddVerseVisibility}
           handleNewTopic={this.handleNewTopic}
-          title={this.props.topic ? `Add a new verse for <${this.props.topic}>` :
+          title={this.props.topic ? `Add verses for <${this.props.topic}>` :
             'First, select a topic'}
           purpose={() => <AddVerse topic={this.props.topic}
           handleNewVerse={this.handleNewVerse} />} />
-          <View style={styles.headerView}>
-            <Ionicons name="md-add-circle" style={styles.addVeiw} size={35} color="rgba(111, 209, 58, .8)"
+          <View style={Styles.headerView}>
+            <Ionicons name="md-add-circle" style={Styles.addVeiw} size={35} color="rgba(111, 209, 58, .7)"
             onPress={() => this.setState({AddVerseVisibility: true })} />
             <View style={{width: 250, height: 50, padding: 10}}>
-              <Text style={styles.verseViewHeading}
+              <Text style={Styles.verseViewHeading}
                 adjustsFontSizeToFit
                 numberOfLines={2}
                 allowFontScaling>
@@ -101,11 +102,11 @@ export default class Verses extends React.Component {
              </Text>
             </View>
           </View>
-          <View style={styles.versesOverall}>
-            <ScrollView style={styles.verseReferences}>
+          <View style={Styles.versesOverall}>
+            <ScrollView style={Styles.verseReferences}>
               {this.renderVerses()}
             </ScrollView>
-            <ScrollView style={styles.verseContent}>
+            <ScrollView style={Styles.verseContent}>
               {this.renderScripture()}
             </ScrollView>
           </View>
@@ -113,72 +114,3 @@ export default class Verses extends React.Component {
     );
   }
 }
-
-const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').width;
-
-const styles = StyleSheet.create({
-  mainView: {
-    flex: 1,
-    flexDirection: 'column',
-    width: width,
-  },
-  headerView: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    marginBottom: 5,
-    marginTop: 10,
-  },
-  verseViewHeading: {
-    fontSize: 18,
-    marginLeft: 20,
-    // paddingBottom: 5,
-    paddingTop: 12,
-    color: 'rgba(0, 0, 0, .5)',
-  },
-  addVeiw: {
-    paddingLeft: 10,
-    paddingTop: 15
-  },
-  versesOverall: {
-    flex: 6,
-    flexDirection: 'row',
-    // paddingTop: 5,
-    bottom: 1,
-  },
-  verseReferences: {
-    // flex: 1,
-    paddingLeft: 5,
-    borderStyle: 'dotted',
-    borderWidth: .3,
-    borderRightWidth: .8,
-    width: width * .3,
-    // height: height * .8,
-    padding: 2,
-    backgroundColor: '#ede5d5',
-  },
-  verseContent: {
-    backgroundColor: 'rgba(237, 237, 164, .2)',
-    width: width * .70,
-    borderStyle: 'solid',
-    borderWidth: .3,
-    marginRight: 1,
-    padding: 2,
-  },
-  verse: {
-    fontSize: 15,
-    paddingBottom: 10,
-    marginBottom: 10,
-    padding: 5
-  },
-  verseNotFound: {
-    color: 'rgba(255, 0, 0, .5)',
-    borderStyle: 'dotted',
-    borderWidth: 1,
-    borderRadius: 1,
-    borderColor: 'red',
-    padding: 20,
-    fontStyle: 'italic'
-  }
-});

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, SafeAreaView, TextInput, Button,
-   Keyboard, ScrollView, Dimensions } from 'react-native';
+import { Text, View, SafeAreaView, TextInput, Button,
+   Keyboard, ScrollView } from 'react-native';
 import { Constants, ScreenOrientation } from 'expo';
+import Styles from './Styles.js';
 
 import Database from '../../database/Database';
 import Topics from '../Topics/Topics';
@@ -60,13 +61,13 @@ export default class Home extends React.Component {
   }
   render() {
     return(
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.title}>Z Flash</Text>
-        <View style={styles.topicsView}>
+      <SafeAreaView style={Styles.container}>
+        <Text style={Styles.title}>Z Flash</Text>
+        <View style={Styles.topicsView}>
             <Topics editMode={this.state.editMode} handleTopic={this.handleTopic}
             keyboardHidden={this.state.keyboardHidden} />
         </View>
-        <View style={styles.versesView}>
+        <View style={Styles.versesView}>
             <Verses editMode={this.state.editMode}
             topic={this.state.topic}
             rawVerses={this.state.rawVerses}
@@ -76,43 +77,3 @@ export default class Home extends React.Component {
     );
   }
 }
-
-const height = Dimensions.get('window').height;
-const width = Dimensions.get('window').width;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: 'rgba(237, 237, 164, .1)',
-    // flexDirection: 'column',
-    // width: width,
-  },
-  title: {
-    flex: 1,
-    // height: height * .08,
-    fontFamily: 'monospace',
-    fontSize: 14,
-    fontWeight: 'normal',
-    paddingTop: 24,
-    paddingLeft: 120,
-    paddingRight: 120,
-    borderBottomRightRadius: 5,
-    borderBottomLeftRadius: 5,
-    backgroundColor: 'rgba(217, 116, 76, .09)'
-  },
-  topicsView: {
-    flex: 7,
-    // height: height * .39,
-    // height: 100,
-    paddingBottom: 1,
-    // width: width,
-  },
-  versesView: {
-    flex: 12,
-    // height: height * .6,
-    // marginTop: 5,
-    alignItems: 'center',
-    // width: width,
-  },
-});

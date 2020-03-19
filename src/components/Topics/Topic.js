@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import Database from '../../database/Database';
+
 const db = new Database();
 
 const formatTopicName = (topic) => {
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
      borderWidth: .5,
      alignItems: 'center',
      padding: 8,
-     backgroundColor: 'rgba(183, 224, 162, .1)',
+     backgroundColor: 'rgba(247, 237, 164, .3)'
   },
 });
 
