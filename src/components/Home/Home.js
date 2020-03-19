@@ -50,14 +50,14 @@ export default class Home extends React.Component {
   componentDidMount() {
     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
     db.initDB();
-    this.keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      this._keyboardDidShow,
-    );
-    this.keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      this._keyboardDidHide,
-    );
+    // this.keyboardDidShowListener = Keyboard.addListener(
+    //   'keyboardDidShow',
+    //   this._keyboardDidShow,
+    // );
+    // this.keyboardDidHideListener = Keyboard.addListener(
+    //   'keyboardDidHide',
+    //   this._keyboardDidHide,
+    // );
   }
   render() {
     return(
