@@ -23,24 +23,26 @@ export default class Home extends React.Component {
     this.handleTopic = this.handleTopic.bind(this);
   }
   handleTopic(topic) {
-    const formated = topic.trim().toLowerCase();
+    const formated = topic.trim();
     this.setState({ topic:  formated });
-    db.findTopic(formated).then(results => {
-      this.setState({ rawVerses: results[0].verses })
-    }).catch(err => {
-      console.error("handleTopic(topic) > db.findTopic(formated).then(results =>");
-      Alert("handleTopic(topic) error. Contact developer");
-    });
+    setTimeout(() => {
+      db.findTopic(formated).then(results => {
+        this.setState({ rawVerses: results[0].verses })
+      }).catch(err => {
+        console.error("handleTopic(topic) > db.findTopic(topic).then(results =>", err);
+        alert("handleTopic(topic) error. Contact developer");
+      });
+    }, 100);
   }
   refreshVerses = (topic) => {
     db.findTopic(topic).then(results => {
       this.setState({ rawVerses: results[0].verses })
     });
   }
-  componentWillUnmount() {
-    this.keyboardDidShowListener.remove();
-    this.keyboardDidHideListener.remove();
-  }
+  // componentWillUnmount() {
+  //   this.keyboardDidShowListener.remove();
+  //   this.keyboardDidHideListener.remove();
+  // }
   _keyboardDidShow = (event) => {
     this.setState({ keyboardHidden: false, keyboardOffset: event.endCoordinates.height });
   }

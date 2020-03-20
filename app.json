@@ -1,10 +1,13 @@
 {
-  "name": "Zflash",
-  "displayName": "Zflash",
+  "name": "ZFlash",
+  "displayName": "ZFlash",
   "expo": {
-    "name": "zflash",
+    "name": "ZFlash",
     "icon": "./img/path.png",
-    "slug": "zflash",
+    "slug": "ZFlash",
+    "splash": {
+      "image": "./img/splash.png"
+    },
     "privacy": "unlisted",
     "sdkVersion": "36.0.0",
     "version": "1.0.0",
@@ -16,7 +19,7 @@
       "package": "com.studytool.zflash",
       "versionCode": 1
     },
-    "entryPoint": "node_modules/expo/AppEntry.js",
+    "entryPoint": "node_modules/expo/AppEntry.js/",
     "platforms": [
       "ios",
       "android",

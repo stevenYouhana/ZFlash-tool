@@ -51,11 +51,17 @@ export default class Verses extends React.Component {
       alert("Cannot contain the '|' character in verse.");
       return;
     }
-     db.addVerseFor(this.props.topic, newVerse);
-     setTimeout(() => {
-       this.props.refreshVerses(this.props.topic);
-       this.renderVerses();
-     }, 500);
+    try {
+      const formated = newVerse.trim();
+      db.addVerseFor(this.props.topic, formated);
+      setTimeout(() => {
+        this.props.refreshVerses(this.props.topic);
+        this.renderVerses();
+      }, 500);
+    } catch(err) {
+      console.error("handleNewVerse(newVerse): ", err)
+      alert("an error occurred: handleNewVerse(newVerse)\ncontact the developer");
+    }
   }
   renderScripture() {
     if (this.state.verse === API_ERR) {
@@ -97,8 +103,7 @@ export default class Verses extends React.Component {
                 adjustsFontSizeToFit
                 numberOfLines={2}
                 allowFontScaling>
-                  {this.props.topic ?
-                    formatTopicName(this.props.topic) : 'select a topic'}
+                  {this.props.topic ? this.props.topic : 'select a topic'}
              </Text>
             </View>
           </View>

@@ -27,16 +27,18 @@ export default class Database {
   }
   findTopic(topic) {
     return new Promise(resolve => {
-      db.transaction(
-        tx => {
-          tx.executeSql("SELECT * FROM topics WHERE topicName = (?)", [topic],
-            (_, { rows: { _array } }) => resolve(_array)
-          );
-        },
-        null,
-        null
-      );
-    });
+      setTimeout(() => {
+        db.transaction(
+          tx => {
+            tx.executeSql("SELECT * FROM topics WHERE topicName = (?)", [topic],
+              (_, { rows: { _array } }) => resolve(_array)
+            );
+          },
+          null,
+          null
+        );
+      });
+      }, 50);
   }
   add(topic) {
    if (topic === null || topic === "") {
@@ -45,7 +47,7 @@ export default class Database {
    db.transaction(
      tx => {
        tx.executeSql("insert into topics (topicName) values (?)",
-       [topic.trim().toLowerCase()]);
+       [topic.trim()]);
        tx.executeSql("select * from topics", [], (_, { rows }) =>
          console.log("topic added: "+topic)
        );

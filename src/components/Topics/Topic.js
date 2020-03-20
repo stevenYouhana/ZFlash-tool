@@ -32,7 +32,7 @@ const Topic = props => {
     onPress={() => props.handleTopic(props.topicName)}
     onLongPress={() => deleteTopic()}
      style={styles.topic}>
-         <Text key={props.textKey}>{formatTopicName(props.topicName)}</Text>
+         <Text key={props.textKey}>{props.topicName}</Text>
    </TouchableOpacity>
   );
 }

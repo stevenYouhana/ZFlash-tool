@@ -30,9 +30,13 @@ export default class Topics extends React.Component {
   }
   handleNewTopic(topic) {
     if (!topic || topic === ''|| !/\w/.test(topic)) return;
-    db.add(topic);
-    if (!this.state.topics.some(el => el.toLowerCase() === topic.toLowerCase()))
+    if (!this.state.topics.some(el => el.toLowerCase() === topic.toLowerCase())) {
+      db.add(topic);
       this.setState( {topics: [...this.state.topics, topic]} );
+    }
+    else {
+      alert("Topic already exists!");
+    }
   }
   updateUponRemoval(topicRemoved) {
     this.setState({ topics: this.state.topics.filter(el => el !== topicRemoved) });
