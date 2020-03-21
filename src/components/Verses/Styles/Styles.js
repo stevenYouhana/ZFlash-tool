@@ -29,6 +29,7 @@ const Styles = StyleSheet.create({
   },
   versesOverall: {
     flex: 6,
+    // width: width,
     flexDirection: 'row',
     bottom: 1,
   },

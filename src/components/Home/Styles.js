@@ -13,7 +13,6 @@ const Styles = StyleSheet.create({
   },
   title: {
     flex: 1,
-    // height: height * .08,
     fontFamily: 'monospace',
     fontSize: 14,
     fontWeight: 'normal',

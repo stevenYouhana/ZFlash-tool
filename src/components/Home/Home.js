@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, SafeAreaView, TextInput, Button,
    Keyboard, ScrollView } from 'react-native';
-import { Constants, ScreenOrientation } from 'expo';
+import { ScreenOrientation } from 'expo';
 import Styles from './Styles.js';
 
 import Database from '../../database/Database';
@@ -50,7 +50,7 @@ export default class Home extends React.Component {
     this.setState({ keyboardHidden: true, keyboardOffset: 0 });
   }
   componentDidMount() {
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+    // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
     db.initDB();
     // this.keyboardDidShowListener = Keyboard.addListener(
     //   'keyboardDidShow',

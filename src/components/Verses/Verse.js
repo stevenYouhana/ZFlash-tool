@@ -37,10 +37,9 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderColor: 'rgba(0, 0, 0, .5)',
     borderWidth: .3,
-    borderBottomWidth: 1.8,
-    borderLeftWidth: 1.8,
-    // backgroundColor: 'rgba(245, 191, 166, .8)',
-    backgroundColor: 'rgba(247, 237, 164, .6)'
+    borderBottomWidth: 1.9,
+    borderLeftWidth: 1.8,    
+    backgroundColor: 'rgba(255, 237, 164, .7)'
   }
 });
 export default Verse;
