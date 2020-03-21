@@ -90,7 +90,7 @@ export default class Database {
  }
  deleteATopic(topicName) {
    db.transaction( tx =>
-     tx.executeSql(`DELETE FROM topics WHERE topicName = '${topicName.toLowerCase()}'`)
+     tx.executeSql(`DELETE FROM topics WHERE topicName = '${topicName}'`)
    )
  }
  clearDB() {

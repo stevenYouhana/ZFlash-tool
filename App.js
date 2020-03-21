@@ -10,7 +10,7 @@ const instructions = Platform.select({
 
 export default class App extends Component {
   componentDidMount() {
-    // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
   }
   render() {
     return (
