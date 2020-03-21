@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 9544,
-  "expoServerNgrokUrl": "https://jr-frr.stevenyouhana.zflash.exp.direct",
-  "packagerNgrokUrl": "https://packager.jr-frr.stevenyouhana.zflash.exp.direct",
-  "ngrokPid": 9916,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": 19006
 }
