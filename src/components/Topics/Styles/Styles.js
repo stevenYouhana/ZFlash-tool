@@ -6,7 +6,7 @@ const Styles = StyleSheet.create({
   container: {
     // width: width,
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',    
   },
   headerView: {
     flexDirection: 'row',

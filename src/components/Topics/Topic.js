@@ -32,7 +32,7 @@ const Topic = props => {
     onPress={() => props.handleTopic(props.topicName)}
     onLongPress={() => deleteTopic()}
      style={styles.topic}>
-         <Text key={props.textKey}>{formatTopicName(props.topicName)}</Text>
+         <Text key={props.textKey}>{props.topicName}</Text>
    </TouchableOpacity>
   );
 }
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
      borderWidth: .5,
      alignItems: 'center',
      padding: 8,
-     backgroundColor: 'rgba(247, 237, 164, .3)'
+     backgroundColor: '#eefae1'
   },
 });
 

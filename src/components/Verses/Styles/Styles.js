@@ -8,26 +8,28 @@ const Styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     width: width,
+    // backgroundColor: 'red'
   },
   headerView: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    marginBottom: 5,
-    marginTop: 10,
+    marginBottom: 1,
+    marginTop: 2,
   },
   verseViewHeading: {
     fontSize: 18,
     marginLeft: 20,
-    paddingTop: 12,
+    paddingTop: 8,
     color: 'rgba(0, 0, 0, .5)',
   },
   addVeiw: {
     paddingLeft: 10,
-    paddingTop: 15
+    paddingTop: 9
   },
   versesOverall: {
     flex: 6,
+    // width: width,
     flexDirection: 'row',
     bottom: 1,
   },
