@@ -1,40 +1,27 @@
 {
-  "name": "ZFlash",
-  "displayName": "ZFlash",
+  "name": "Zflash",
+  "displayName": "Zflash",
   "expo": {
-    "name": "ZFlash",
-    "icon": "./img/icon.png",
-    "slug": "ZFlash",
+    "name": "zflash",
+    "icon": "./img/path.png",
+    "slug": "zflash",
     "privacy": "unlisted",
     "sdkVersion": "36.0.0",
-    "version": "0.5.0",
+    "version": "1.0.0",
     "ios": {
       "bundleIdentifier": "com.studytool.zflash",
-      "buildNumber": "1.0.0",
-      "splash": {
-        "image": "./img/splash.png",
-        "resizeMode": "contain"
-      }
+      "buildNumber": "1.0.0"
     },
     "android": {
       "package": "com.studytool.zflash",
-      "versionCode": 1,
-      "splash": {
-        "mdpi": "./img/splash.png",
-        "hdpi": "./img/splash.png",
-        "xhdpi": "./img/splash.png",
-        "xxhdpi": "./img/splash.png",
-        "xxxhdpi": "./img/splash.png",
-        "resizeMode": "contain"
-      }
+      "versionCode": 1
     },
-    "entryPoint": "node_modules/expo/AppEntry.js/",
+    "entryPoint": "node_modules/expo/AppEntry.js",
     "platforms": [
       "ios",
       "android",
       "web"
     ],
-    "orientation": "portrait",
     "description": ""
   }
 }
