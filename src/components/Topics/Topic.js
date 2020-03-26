@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import EditMenu from '../Utility/EditMenu';
 import Database from '../../database/Database';
 
 const db = new Database();
@@ -26,11 +27,14 @@ const Topic = props => {
       { cancelable: false }
     );
   }
+  const editMenu = () => {
+      return <EditMenu />
+  }
   return(
     <TouchableOpacity
     childKey={props.childKey}
     onPress={() => props.handleTopic(props.topicName)}
-    onLongPress={() => deleteTopic()}
+    onLongPress={() => editMenu()}
      style={styles.topic}>
          <Text key={props.textKey}>{props.topicName}</Text>
    </TouchableOpacity>
