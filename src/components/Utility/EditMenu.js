@@ -1,40 +1,39 @@
-import * as React from 'react';
-import { View } from 'react-native';
-import { Button, Paragraph, Menu, Divider, Provider } from 'react-native-paper';
+import React, { Component } from 'react';
+import { StyleSheet, Modal, Text, TextInput, View, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import Styles from './Styles';
+import AddTopic from '../Topics/AddTopic';
 
-export default class MyComponent extends React.Component {
-  state = {
-    visible: false,
-  };
 
-  _openMenu = () => this.setState({ visible: true });
+const EditMenu = (props) => {
+  console.log("currentTopicTitle: ",currentTopicTitle)
+  return(
+    <View style={Styles.mainView}>
+      <Modal animationType="slide"
+            transparent={true}
+            visible={true}
+            >
+            <View style={Styles.container}>
+              <Ionicons name="md-remove" size={60} color="white"
+              style={Styles.close} onPress={() => props.hide()} />
+              <View>
+                <Text style={Styles.title}>{props.title}</Text>
+                {() => {
+                  return(
+                    <View>
+                      <Text>Edit Topic</Text>
+                      <TextInput value={props.currentTopicTitle} />
+                      <Button title="Save" onPress={() => alert("new name saved!")} />
+                      <Button title="Delete" onPress={() => alert("deleting...")} />
+                    </View>
+                  )
+                }}
+              </View>
+            </View>
+      </Modal>
+    </View>
 
-  _closeMenu = () => this.setState({ visible: false });
-
-  render() {
-    return (
-      <Provider>
-        <View
-          style={{
-            paddingTop: 50,
-            flexDirection: 'row',
-            justifyContent: 'center'
-          }}>
-          <Menu
-            visible={this.state.visible}
-            onDismiss={this._closeMenu}
-            anchor={
-              <Button onPress={this._openMenu}>Show menu</Button>
-            }
-          >
-            <Menu.Item onPress={() => {}} title="Item 1" />
-            <Menu.Item onPress={() => {}} title="Item 2" />
-
-            <Menu.Item onPress={() => alert("hey")} title="Item 3" />
-          </Menu>
-
-        </View>
-      </Provider>
-    );
-  }
+  );
 }
+
+export default EditMenu;

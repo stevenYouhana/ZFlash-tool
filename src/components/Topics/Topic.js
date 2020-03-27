@@ -28,7 +28,7 @@ const Topic = props => {
     );
   }
   const editMenu = () => {
-      return <EditMenu />
+      return <EditMenu currentTopicTitle={props.topicName} />;
   }
   return(
     <TouchableOpacity
