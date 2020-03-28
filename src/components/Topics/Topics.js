@@ -69,8 +69,7 @@ export default class Topics extends React.Component {
     return(
       <View style={Styles.container}>
         <AddModal visiblity={this.state.AddTopicVisibility}
-          hide={this.hideAddTopicVisibility}
-          handleNewTopic={this.handleNewTopic}
+          hide={this.hideAddTopicVisibility}          
           title="Add new topics"
           purpose={() => <AddTopic handleNewTopic={this.handleNewTopic} />}
         />

@@ -1,39 +1,59 @@
 import React, { Component } from 'react';
-import { StyleSheet, Modal, Text, TextInput, View, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Styles from './Styles';
 import AddTopic from '../Topics/AddTopic';
 
+class EditMenu extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { newName: this.props.currentTopicTitle }
+  }
+  render() {
+    return(
+      <View style={styles.container}>
+        <View style={styles.editView}>
+          <TextInput style={styles.textField} value={this.state.newName}
+          onChangeText={ text => this.setState({ newName: text })} />
+          <View style={styles.buttonSave}>
+            <Button title="Save"
+              onPress={() => this.props.editTopic(this.state.newName)} />
+          </View>
 
-const EditMenu = (props) => {
-  console.log("currentTopicTitle: ",currentTopicTitle)
-  return(
-    <View style={Styles.mainView}>
-      <Modal animationType="slide"
-            transparent={true}
-            visible={true}
-            >
-            <View style={Styles.container}>
-              <Ionicons name="md-remove" size={60} color="white"
-              style={Styles.close} onPress={() => props.hide()} />
-              <View>
-                <Text style={Styles.title}>{props.title}</Text>
-                {() => {
-                  return(
-                    <View>
-                      <Text>Edit Topic</Text>
-                      <TextInput value={props.currentTopicTitle} />
-                      <Button title="Save" onPress={() => alert("new name saved!")} />
-                      <Button title="Delete" onPress={() => alert("deleting...")} />
-                    </View>
-                  )
-                }}
-              </View>
-            </View>
-      </Modal>
-    </View>
-
-  );
+        </View>
+        <View style={styles.deleteView}>
+          <Button style={styles.buttonDelete} title="Delete" color='#ff6a53'
+            onPress={() => this.props.deleteTopic()} />
+        </View>
+      </View>
+    );
+  }
 }
-
+const styles = StyleSheet.create({
+  container : {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  editView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  deleteView: {
+    marginVertical: 10,
+  },
+  textField: {
+    // flex: 1,
+    alignContent: 'flex-start',
+    height: 35,
+    width: '80%',
+    borderColor: 'gray',
+    color: 'white',
+    borderWidth: 1,
+    paddingLeft: 5,
+  },
+  buttonSave: {
+    width: '18%',
+    alignContent: 'flex-end',
+  },
+});
 export default EditMenu;
