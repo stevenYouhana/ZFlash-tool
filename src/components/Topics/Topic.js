@@ -34,8 +34,20 @@ class Topic extends React.Component {
   }
   editTopic = (newName) => {
       console.log("editTopic(): ", newName);
-      db.editTopicnName(this.props.topicName, newName);
-      this.setState({ editView: false })
+      if (newName === this.props.topicName) {
+        this.setState({ editView: false });
+        return;
+      };
+      try {
+        db.editTopicnName(this.props.topicName, newName);
+        this.setState({ editView: false });
+        this.props.editTopicName(this.props.topicName, newName);
+      } catch (err) {
+        console.error("editTopic = (newName) => ", err)
+      }
+      finally {
+        this.setState({ editView: false });
+      }
   }
   hideEditMenu = () => {
     this.setState({ editView: false })
@@ -55,8 +67,7 @@ class Topic extends React.Component {
          currentTopicTitle={this.props.topicName}
          deleteTopic={this.deleteTopic} editTopic={this.editTopic} />}
        />
-
-           <Text key={this.props.textKey}>{this.props.topicName}</Text>
+       <Text key={this.props.textKey}>{this.props.topicName}</Text>
      </TouchableOpacity>
     );
   }

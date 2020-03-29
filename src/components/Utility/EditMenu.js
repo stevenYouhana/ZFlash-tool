@@ -13,7 +13,7 @@ class EditMenu extends React.Component {
     return(
       <View style={styles.container}>
         <View style={styles.editView}>
-          <TextInput style={styles.textField} value={this.state.newName}
+          <TextInput style={Styles.textField} value={this.state.newName}
           onChangeText={ text => this.setState({ newName: text })} />
           <View style={styles.buttonSave}>
             <Button title="Save"

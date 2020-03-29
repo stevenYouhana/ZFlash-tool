@@ -15,7 +15,7 @@ const AddVerse = props => {
             alignContent: 'flex-start',
             height: 35,
             width: 215,
-            borderColor: `${props.topic ? 'gray' : 'black'}`,
+            borderColor: `${props.topic ? 'white' : 'black'}`,
             color: 'white',
             borderWidth: 1,
             paddingLeft: 5,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
     justifyContent: 'space-between',
-  },  
+  },
   buttonView: {
     width: 80,
     height: 40,

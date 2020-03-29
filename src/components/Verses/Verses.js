@@ -42,7 +42,11 @@ export default class Verses extends React.Component {
             handleVerse={this.handleVerse} topic={this.props.topic}
             refreshVerses={this.props.refreshVerses} />
           );
-        }):  <Text>No verses loaded yet ...</Text>
+        }) :
+        <Text style={Styles.addVerses}>
+          {this.props.topic ? `Add verses for <${this.props.topic}>` 
+            : "Select a topic then add verses"}
+        </Text>
   }
   handleNewVerse(newVerse) {
     if (!newVerse || newVerse === ''|| !/\w/.test(newVerse)) return;

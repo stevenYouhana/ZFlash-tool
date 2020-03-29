@@ -20,7 +20,6 @@ const Styles = StyleSheet.create({
   verseViewHeading: {
     fontSize: 18,
     marginLeft: 20,
-    paddingTop: 8,
     color: 'rgba(0, 0, 0, .5)',
   },
   addVeiw: {
@@ -32,6 +31,9 @@ const Styles = StyleSheet.create({
     // width: width,
     flexDirection: 'row',
     bottom: 1,
+  },
+  addVerses: {
+    color: 'rgba(0, 0, 0, .5)',
   },
   verseReferences: {
     paddingLeft: 5,

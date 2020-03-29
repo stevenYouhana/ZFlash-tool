@@ -86,8 +86,7 @@ export default class Database {
    this.findTopic(topic).then(results => {
      return results[0].verses;
    }).then(currentVerses => {
-     const updatedVerses = currentVerses.replace(`|${verseRef}`, '');
-     // console.log("updatedVerses: ",updatedVerses+"END")
+     const updatedVerses = currentVerses.replace(`|${verseRef}`, '');     
      db.transaction(tx => {
        tx.executeSql(
          `UPDATE topics SET verses = '${updatedVerses}' WHERE topicName = '${topic}'`,

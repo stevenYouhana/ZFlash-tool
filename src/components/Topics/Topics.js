@@ -17,6 +17,7 @@ export default class Topics extends React.Component {
     this.updateData = this.updateData.bind(this);
     this.handleNewTopic = this.handleNewTopic.bind(this);
     this.updateUponRemoval = this.updateUponRemoval.bind(this);
+    this.editTopicName = this.editTopicName.bind(this);
   }
   getTopics() {
       return this.state.topics && this.state.topics.length > 0 ?
@@ -24,7 +25,9 @@ export default class Topics extends React.Component {
           return(
             <Topic key={`Topic${i}`} childKey={`childKey${i}`}
              textKey={`textKey${i}`} topicName={topic}
-             handleTopic={this.props.handleTopic} updateParentData={this.updateUponRemoval} />
+             handleTopic={this.props.handleTopic}
+             updateParentData={this.updateUponRemoval}
+             editTopicName={this.editTopicName} />
          );
        }) : <Text style={Styles.noTopicsLoded}>{'no topics loaded...\nClick the top plus button to load a topic'}</Text>
   }
@@ -54,6 +57,16 @@ export default class Topics extends React.Component {
       });
     }
   }
+  editTopicName(topicName, newName) {
+    let topics = [...this.state.topics]
+    let i = 0;
+    for (i; i<topics.length; i++)
+      if (topics[i] === topicName) {
+        topics[i] = newName;
+        break;
+      }
+    this.setState({ topics: topics });
+  }
   hideAddTopicVisibility = () => {
     this.setState({ AddTopicVisibility: false });
   }
@@ -69,7 +82,7 @@ export default class Topics extends React.Component {
     return(
       <View style={Styles.container}>
         <AddModal visiblity={this.state.AddTopicVisibility}
-          hide={this.hideAddTopicVisibility}          
+          hide={this.hideAddTopicVisibility}
           title="Add new topics"
           purpose={() => <AddTopic handleNewTopic={this.handleNewTopic} />}
         />
@@ -80,7 +93,7 @@ export default class Topics extends React.Component {
           <Text style={Styles.verseViewHeading}>Topics</Text>
         </View>
 
-        <ScrollView style={Styles.topicsView}>
+        <ScrollView style={Styles.topicsView} keyboardShouldPersistTaps={'always'} >
           {this.getTopics()}
         </ScrollView>
       </View>

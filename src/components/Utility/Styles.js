@@ -29,7 +29,17 @@ const Styles = StyleSheet.create({
   },
   AddTopic: {
     margin: 10,
-  }
+  },
+  textField: {
+    // flex: 1,
+    alignContent: 'flex-start',
+    height: 35,
+    width: '80%',
+    borderColor: 'white',
+    color: 'white',
+    borderWidth: 1,
+    paddingLeft: 5,
+  },
 });
 
 export default Styles;
