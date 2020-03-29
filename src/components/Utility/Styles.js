@@ -8,8 +8,8 @@ const Styles = StyleSheet.create({
 
   },
   container: {
-    borderWidth: 6,
-    borderColor: 'lightyellow',
+    borderWidth: 2,
+    borderColor: '#deffbf',
     marginLeft: 15,
     marginRight: 15,
     height: 200,
@@ -21,11 +21,12 @@ const Styles = StyleSheet.create({
     paddingBottom: 10
   },
   close: {
-    marginLeft: width * .7,
+    // marginLeft: width * .7,
+    marginLeft: '80%',
     width: 35,
     paddingTop: 2,
-    paddingBottom: 2,
-    padding: 5,
+    paddingBottom: 1,
+    // padding: 5,
   },
   AddTopic: {
     margin: 10,

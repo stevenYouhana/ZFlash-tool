@@ -22,13 +22,6 @@ export default class Database {
 
     db.transaction(tx => {
       tx.executeSql(
-      "select * from topics",
-      [],
-      (_, { rows: { _array } }) => console.log(_array),
-      (err) => console.log("error fetching", err)
-    );
-
-      tx.executeSql(
         "CREATE TABLE IF NOT EXISTS topics (id INTEGER PRIMARY KEY AUTOINCREMENT, topicName TEXT UNIQUE, verses TEXT);"
       );
     });
@@ -86,7 +79,7 @@ export default class Database {
    this.findTopic(topic).then(results => {
      return results[0].verses;
    }).then(currentVerses => {
-     const updatedVerses = currentVerses.replace(`|${verseRef}`, '');     
+     const updatedVerses = currentVerses.replace(`|${verseRef}`, '');
      db.transaction(tx => {
        tx.executeSql(
          `UPDATE topics SET verses = '${updatedVerses}' WHERE topicName = '${topic}'`,

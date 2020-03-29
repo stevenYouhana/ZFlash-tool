@@ -44,7 +44,7 @@ export default class Verses extends React.Component {
           );
         }) :
         <Text style={Styles.addVerses}>
-          {this.props.topic ? `Add verses for <${this.props.topic}>` 
+          {this.props.topic ? `Add verses for <${this.props.topic}>`
             : "Select a topic then add verses"}
         </Text>
   }
@@ -77,7 +77,7 @@ export default class Verses extends React.Component {
     }
     else {
       return this.state.verse ? <Text style={Styles.verse}>{this.state.verse}</Text>
-        : <Text style={Styles.noVerseSelected}>Select a verse ...</Text>
+        : <Text style={Styles.noVerseSelected}>{'< Select a verse'}</Text>
     }
 
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Modal, Text, View, ScrollView, KeyboardAvoidingView, Dimensions } from 'react-native';
+import { Modal, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Styles from './Styles';
 import AddTopic from '../Topics/AddTopic';

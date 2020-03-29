@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Styles from './Styles';
-import AddTopic from '../Topics/AddTopic';
 
 class EditMenu extends React.Component {
   constructor(props) {
@@ -19,10 +18,9 @@ class EditMenu extends React.Component {
             <Button title="Save"
               onPress={() => this.props.editTopic(this.state.newName)} />
           </View>
-
         </View>
         <View style={styles.deleteView}>
-          <Button style={styles.buttonDelete} title="Delete" color='#ff6a53'
+          <Button style={styles.buttonDelete} title="delete topic" color='#ff6a53'
             onPress={() => this.props.deleteTopic()} />
         </View>
       </View>

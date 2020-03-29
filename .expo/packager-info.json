@@ -2,9 +2,9 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 33812,
+  "packagerPid": 6016,
   "expoServerNgrokUrl": "https://jr-frr.anonymous.zflash.exp.direct",
   "packagerNgrokUrl": "https://packager.jr-frr.anonymous.zflash.exp.direct",
-  "ngrokPid": 30944,
+  "ngrokPid": 44432,
   "webpackServerPort": 19006
 }

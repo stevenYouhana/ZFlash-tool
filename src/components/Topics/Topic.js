@@ -19,7 +19,7 @@ class Topic extends React.Component {
   deleteTopic = () => {
     Alert.alert(
       'Delete',
-      `Are you sure you want to delete ${this.props.topicName}?\nAll associated verses will be deleted.`,
+      `Are you sure you want to delete <${this.props.topicName}>?\nAll associated verses will be deleted.`,
       [
         { text: 'Yes',
           onPress: () => {
@@ -33,7 +33,6 @@ class Topic extends React.Component {
     );
   }
   editTopic = (newName) => {
-      console.log("editTopic(): ", newName);
       if (newName === this.props.topicName) {
         this.setState({ editView: false });
         return;
@@ -62,7 +61,7 @@ class Topic extends React.Component {
 
        <AddModal visiblity={this.state.editView}
          hide={this.hideEditMenu}
-         title="Edit or detele topic"
+         title="Edit name or detele topic"
          purpose={() => <EditMenu visiblity={this.state.editView}
          currentTopicTitle={this.props.topicName}
          deleteTopic={this.deleteTopic} editTopic={this.editTopic} />}
