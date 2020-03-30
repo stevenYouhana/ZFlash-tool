@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, TextInput, StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { Button, TextInput, StyleSheet, Text, View } from 'react-native';
 
 const AddTopic = props => {
   let topic;

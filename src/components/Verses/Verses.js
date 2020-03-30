@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions,SafeAreaView } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import Verse from './Verse';
 import AddVerse from './AddVerse';
 import AddModal from '../Utility/AddModal';

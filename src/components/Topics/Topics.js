@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Dimensions  } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Topic from './Topic';
 import AddTopic from '../Topics/AddTopic';
@@ -33,9 +33,9 @@ export default class Topics extends React.Component {
   }
   handleNewTopic(topic) {
     if (!topic || topic === ''|| !/\w/.test(topic)) return;
-    if (!this.state.topics.some(el => el.toLowerCase() === topic.toLowerCase())) {
+    if (!this.state.topics.some(el => el.toLowerCase() === topic.trim().toLowerCase())) {
       db.add(topic);
-      this.setState( {topics: [...this.state.topics, topic]} );
+      this.setState( { topics: [...this.state.topics, topic.trim()] } );
     }
     else {
       alert("Topic already exists!");
@@ -58,11 +58,16 @@ export default class Topics extends React.Component {
     }
   }
   editTopicName(topicName, newName) {
+    if (this.state.topics.some(topic =>
+      topic.toLowerCase() === newName.trim().toLowerCase())) {
+        alert("Topic already exists!\nEnding process.");
+        return;
+    }
     let topics = [...this.state.topics]
     let i = 0;
     for (i; i<topics.length; i++)
       if (topics[i] === topicName) {
-        topics[i] = newName;
+        topics[i] = newName.trim();
         break;
       }
     this.setState({ topics: topics });

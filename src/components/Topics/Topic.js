@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 import EditMenu from '../Utility/EditMenu';
 import AddModal from '../Utility/AddModal';
 import Database from '../../database/Database';

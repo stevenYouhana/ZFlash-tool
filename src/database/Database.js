@@ -91,7 +91,7 @@ export default class Database {
  }
  editTopicnName(topic, newName) {
    db.transaction( tx => {
-     tx.executeSql(`UPDATE topics SET topicName = '${newName}' WHERE topicName = '${topic}'`,
+     tx.executeSql(`UPDATE topics SET topicName = '${newName.trim()}' WHERE topicName = '${topic}'`,
      [],
      null
     );
