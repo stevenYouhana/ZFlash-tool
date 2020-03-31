@@ -19,6 +19,7 @@ export default class Database {
     //   tx.executeSql("DROP TABLE topics");
     //   console.log("TABLE DROPPED!");
     // })
+
     db.transaction(tx => {
       tx.executeSql(
         "CREATE TABLE IF NOT EXISTS topics (id INTEGER PRIMARY KEY AUTOINCREMENT, topicName TEXT UNIQUE, verses TEXT);"
@@ -65,12 +66,13 @@ export default class Database {
        tx.executeSql(
          `UPDATE topics SET verses = '${totalVerses}' WHERE topicName = '${topic}'`,
          [],
-         null
+         null,
+         err => console.log("SQL EROR: ",err)
        );
      });
    }).catch(err => {
      console.log("addVerseFor(topic, newVerse): ",err.message)
-     Alert("Database error. Contact developer");
+     alert("Database error. Contact developer");
    })
  }
  deleteAVerseFrom(topic, verseRef) {
@@ -78,7 +80,6 @@ export default class Database {
      return results[0].verses;
    }).then(currentVerses => {
      const updatedVerses = currentVerses.replace(`|${verseRef}`, '');
-     // console.log("updatedVerses: ",updatedVerses+"END")
      db.transaction(tx => {
        tx.executeSql(
          `UPDATE topics SET verses = '${updatedVerses}' WHERE topicName = '${topic}'`,
@@ -88,10 +89,22 @@ export default class Database {
      });
    });
  }
+ editTopicnName(topic, newName) {
+   db.transaction( tx => {
+     tx.executeSql(`UPDATE topics SET topicName = '${newName.trim()}' WHERE topicName = '${topic}'`,
+     [],
+     null
+    );
+  });
+ }
  deleteATopic(topicName) {
    db.transaction( tx =>
-     tx.executeSql(`DELETE FROM topics WHERE topicName = '${topicName}'`)
-   )
+     tx.executeSql(`DELETE FROM topics WHERE topicName = '${topicName}'`,
+       [],
+       console.log("deleted!"),
+       err => console.log("error deleting topic", err)
+     )
+   );
  }
  clearDB() {
    console.log("clearDB() ...");

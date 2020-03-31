@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Dimensions  } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Topic from './Topic';
 import AddTopic from '../Topics/AddTopic';
@@ -17,6 +17,7 @@ export default class Topics extends React.Component {
     this.updateData = this.updateData.bind(this);
     this.handleNewTopic = this.handleNewTopic.bind(this);
     this.updateUponRemoval = this.updateUponRemoval.bind(this);
+    this.editTopicName = this.editTopicName.bind(this);
   }
   getTopics() {
       return this.state.topics && this.state.topics.length > 0 ?
@@ -24,15 +25,17 @@ export default class Topics extends React.Component {
           return(
             <Topic key={`Topic${i}`} childKey={`childKey${i}`}
              textKey={`textKey${i}`} topicName={topic}
-             handleTopic={this.props.handleTopic} updateParentData={this.updateUponRemoval} />
+             handleTopic={this.props.handleTopic}
+             updateParentData={this.updateUponRemoval}
+             editTopicName={this.editTopicName} />
          );
        }) : <Text style={Styles.noTopicsLoded}>{'no topics loaded...\nClick the top plus button to load a topic'}</Text>
   }
   handleNewTopic(topic) {
     if (!topic || topic === ''|| !/\w/.test(topic)) return;
-    if (!this.state.topics.some(el => el.toLowerCase() === topic.toLowerCase())) {
+    if (!this.state.topics.some(el => el.toLowerCase() === topic.trim().toLowerCase())) {
       db.add(topic);
-      this.setState( {topics: [...this.state.topics, topic]} );
+      this.setState( { topics: [...this.state.topics, topic.trim()] } );
     }
     else {
       alert("Topic already exists!");
@@ -54,6 +57,21 @@ export default class Topics extends React.Component {
       });
     }
   }
+  editTopicName(topicName, newName) {
+    if (this.state.topics.some(topic =>
+      topic.toLowerCase() === newName.trim().toLowerCase())) {
+        alert("Topic already exists!\nEnding process.");
+        return;
+    }
+    let topics = [...this.state.topics]
+    let i = 0;
+    for (i; i<topics.length; i++)
+      if (topics[i] === topicName) {
+        topics[i] = newName.trim();
+        break;
+      }
+    this.setState({ topics: topics });
+  }
   hideAddTopicVisibility = () => {
     this.setState({ AddTopicVisibility: false });
   }
@@ -70,7 +88,6 @@ export default class Topics extends React.Component {
       <View style={Styles.container}>
         <AddModal visiblity={this.state.AddTopicVisibility}
           hide={this.hideAddTopicVisibility}
-          handleNewTopic={this.handleNewTopic}
           title="Add new topics"
           purpose={() => <AddTopic handleNewTopic={this.handleNewTopic} />}
         />
@@ -81,7 +98,7 @@ export default class Topics extends React.Component {
           <Text style={Styles.verseViewHeading}>Topics</Text>
         </View>
 
-        <ScrollView style={Styles.topicsView}>
+        <ScrollView style={Styles.topicsView} keyboardShouldPersistTaps={'always'} >
           {this.getTopics()}
         </ScrollView>
       </View>

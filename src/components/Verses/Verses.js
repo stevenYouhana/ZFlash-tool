@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions,SafeAreaView } from 'react-native';
+import { Text, View, ScrollView } from 'react-native';
 import Verse from './Verse';
 import AddVerse from './AddVerse';
 import AddModal from '../Utility/AddModal';
@@ -42,7 +42,11 @@ export default class Verses extends React.Component {
             handleVerse={this.handleVerse} topic={this.props.topic}
             refreshVerses={this.props.refreshVerses} />
           );
-        }):  <Text>No verses loaded yet ...</Text>
+        }) :
+        <Text style={Styles.addVerses}>
+          {this.props.topic ? `Add verses for <${this.props.topic}>`
+            : "Select a topic then add verses"}
+        </Text>
   }
   handleNewVerse(newVerse) {
     if (!newVerse || newVerse === ''|| !/\w/.test(newVerse)) return;
@@ -73,7 +77,7 @@ export default class Verses extends React.Component {
     }
     else {
       return this.state.verse ? <Text style={Styles.verse}>{this.state.verse}</Text>
-        : <Text style={Styles.noVerseSelected}>Select a verse ...</Text>
+        : <Text style={Styles.noVerseSelected}>{'< Select a verse'}</Text>
     }
 
   }

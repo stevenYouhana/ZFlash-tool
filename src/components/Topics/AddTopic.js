@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, TextInput, StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { Button, TextInput, StyleSheet, Text, View } from 'react-native';
 
 const AddTopic = props => {
   let topic;
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     alignContent: 'flex-start',
     height: 35,
     width: 215,
-    borderColor: 'gray',
+    borderColor: 'white',
     color: 'white',
     borderWidth: 1,
     paddingLeft: 5,
