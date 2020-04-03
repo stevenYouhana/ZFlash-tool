@@ -4,14 +4,25 @@ const width = Dimensions.get('window').width;
 
 const Styles = StyleSheet.create({
   container: {
-    // width: width,
-    flex: 1,
-    alignItems: 'center',    
+    alignItems: 'center',
   },
   headerView: {
     flexDirection: 'row',
     width: width,
-    alignItems: 'flex-start',
+  },
+  addVeiwContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start',    
+  },
+  searchView: {
+    flex: 1,
+    alignItems: 'flex-end',
+    paddingRight: 10,
+    paddingBottom: 4,
+  },
+  topicListView: {
+    flex: 5
   },
   topicsView: {
     width: 300,

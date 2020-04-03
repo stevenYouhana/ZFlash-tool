@@ -5,6 +5,7 @@ import Topic from './Topic';
 import AddTopic from '../Topics/AddTopic';
 import Database from '../../database/Database';
 import AddModal from '../Utility/AddModal';
+import SearchTopic from '../Search/SearchTopic/SearchTopic';
 import Styles from './Styles/Styles';
 
 const db = new Database();
@@ -92,15 +93,22 @@ export default class Topics extends React.Component {
           purpose={() => <AddTopic handleNewTopic={this.handleNewTopic} />}
         />
         <View style={Styles.headerView}>
-          <Ionicons name="md-add-circle" style={Styles.addVeiw} size={35}
-          color="rgba(111, 209, 58, .7)"
-          onPress={() => this.setState({ AddTopicVisibility:true })} />
-          <Text style={Styles.verseViewHeading}>Topics</Text>
-        </View>
+         <View style={Styles.addVeiwContainer}>
+           <Ionicons name="md-add-circle" style={Styles.addVeiw} size={35}
+           color="rgba(111, 209, 58, .7)"
+           onPress={() => this.setState({ AddTopicVisibility:true })} />
+           <Text style={Styles.verseViewHeading}>Topics</Text>
+         </View>
 
-        <ScrollView style={Styles.topicsView} keyboardShouldPersistTaps={'always'} >
-          {this.getTopics()}
-        </ScrollView>
+          <View style={Styles.searchView}>
+            <SearchTopic />
+          </View>
+        </View>
+        <View style={Styles.topicListView}>
+          <ScrollView style={Styles.topicsView} keyboardShouldPersistTaps={'always'} >
+            {this.getTopics()}
+          </ScrollView>
+        </View>
       </View>
     );
   }
