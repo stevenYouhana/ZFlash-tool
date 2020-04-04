@@ -13,10 +13,12 @@ const Styles = StyleSheet.create({
   addVeiwContainer: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'flex-start',    
+    alignItems: 'flex-start',
+    paddingLeft: 10,
+    paddingBottom: 4
   },
-  searchView: {
-    flex: 1,
+  searchViewContainer: {
+    flex: 1.2,
     alignItems: 'flex-end',
     paddingRight: 10,
     paddingBottom: 4,
@@ -45,10 +47,6 @@ const Styles = StyleSheet.create({
     color: 'rgba(0,0,0,0.5)',
     borderStyle: 'dotted',
     borderWidth: .4
-  },
-  addVeiw: {
-    paddingLeft: 10,
-    paddingBottom: 4
   },
 });
 

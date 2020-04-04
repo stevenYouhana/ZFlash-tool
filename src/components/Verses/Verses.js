@@ -107,7 +107,7 @@ export default class Verses extends React.Component {
                 adjustsFontSizeToFit
                 numberOfLines={2}
                 allowFontScaling>
-                  {this.props.topic ? this.props.topic : 'select a topic'}
+                  {this.props.topic ? this.props.topic : 'select a topic ^'}
              </Text>
             </View>
           </View>

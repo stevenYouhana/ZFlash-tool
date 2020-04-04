@@ -14,8 +14,6 @@ export default class Home extends React.Component {
     this.state = {
       topic: '',
       rawVerses: '',
-      keyboardHidden: true,
-      keyboardOffset: 0,
       editMode: false,
     };
     this.handleTopic = this.handleTopic.bind(this);
@@ -37,26 +35,8 @@ export default class Home extends React.Component {
       this.setState({ rawVerses: results[0].verses })
     });
   }
-  // componentWillUnmount() {
-  //   this.keyboardDidShowListener.remove();
-  //   this.keyboardDidHideListener.remove();
-  // }
-  _keyboardDidShow = (event) => {
-    this.setState({ keyboardHidden: false, keyboardOffset: event.endCoordinates.height });
-  }
-  _keyboardDidHide = () => {
-    this.setState({ keyboardHidden: true, keyboardOffset: 0 });
-  }
-  componentDidMount() {    
+  componentDidMount() {
     db.initDB();
-    // this.keyboardDidShowListener = Keyboard.addListener(
-    //   'keyboardDidShow',
-    //   this._keyboardDidShow,
-    // );
-    // this.keyboardDidHideListener = Keyboard.addListener(
-    //   'keyboardDidHide',
-    //   this._keyboardDidHide,
-    // );
   }
   render() {
     return(

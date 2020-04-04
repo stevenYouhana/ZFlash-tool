@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Topic from './Topic';
+import RenderTopics from './RenderTopics';
 import AddTopic from '../Topics/AddTopic';
 import Database from '../../database/Database';
 import AddModal from '../Utility/AddModal';
@@ -13,24 +14,17 @@ const db = new Database();
 export default class Topics extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { topics: [],  topic: '', AddTopicVisibility: false }
-    this.getTopics = this.getTopics.bind(this);
+    this.state = {
+      topics: [],
+      topic: '',
+      AddTopicVisibility: false,
+      searching: false,
+      searchText: ''
+    }
     this.updateData = this.updateData.bind(this);
     this.handleNewTopic = this.handleNewTopic.bind(this);
     this.updateUponRemoval = this.updateUponRemoval.bind(this);
     this.editTopicName = this.editTopicName.bind(this);
-  }
-  getTopics() {
-      return this.state.topics && this.state.topics.length > 0 ?
-        this.state.topics.map((topic, i) => {
-          return(
-            <Topic key={`Topic${i}`} childKey={`childKey${i}`}
-             textKey={`textKey${i}`} topicName={topic}
-             handleTopic={this.props.handleTopic}
-             updateParentData={this.updateUponRemoval}
-             editTopicName={this.editTopicName} />
-         );
-       }) : <Text style={Styles.noTopicsLoded}>{'no topics loaded...\nClick the top plus button to load a topic'}</Text>
   }
   handleNewTopic(topic) {
     if (!topic || topic === ''|| !/\w/.test(topic)) return;
@@ -77,7 +71,6 @@ export default class Topics extends React.Component {
     this.setState({ AddTopicVisibility: false });
   }
   componentDidMount() {
-    // db.clearDB();
     db.setDataUpToDate().then(results => {
       results.map(result => {
         this.setState({ topics: [...this.state.topics, result.topicName] });
@@ -85,6 +78,12 @@ export default class Topics extends React.Component {
     })
   }
   render() {
+    const searchingInProgress = (searching) => {
+      this.setState({ searching: searching});
+    }
+    const setSeachText = (text) => {
+      this.setState({ searchText: text });
+    }
     return(
       <View style={Styles.container}>
         <AddModal visiblity={this.state.AddTopicVisibility}
@@ -94,20 +93,24 @@ export default class Topics extends React.Component {
         />
         <View style={Styles.headerView}>
          <View style={Styles.addVeiwContainer}>
-           <Ionicons name="md-add-circle" style={Styles.addVeiw} size={35}
+           <Ionicons name="md-add-circle" size={35}
            color="rgba(111, 209, 58, .7)"
-           onPress={() => this.setState({ AddTopicVisibility:true })} />
+           onPress={() => this.setState({ AddTopicVisibility: true })} />
            <Text style={Styles.verseViewHeading}>Topics</Text>
          </View>
-
-          <View style={Styles.searchView}>
-            <SearchTopic />
+          <View style={Styles.searchViewContainer}>
+            <SearchTopic searching={searchingInProgress}
+            setSeachText={setSeachText} />
           </View>
         </View>
         <View style={Styles.topicListView}>
-          <ScrollView style={Styles.topicsView} keyboardShouldPersistTaps={'always'} >
-            {this.getTopics()}
-          </ScrollView>
+          <RenderTopics topics={this.state.topics}
+            handleTopic={this.props.handleTopic}
+            updateParentData={this.updateUponRemoval}
+            editTopicName={this.editTopicName}
+            searching={this.state.searching}
+            searchText={this.state.searchText}
+          />
         </View>
       </View>
     );

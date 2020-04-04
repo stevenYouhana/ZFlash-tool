@@ -25,17 +25,11 @@ const Styles = StyleSheet.create({
   },
   topicsView: {
     flex: 7,
-    // height: height * .39,
-    // height: 100,
     paddingBottom: 1,
-    // width: width,
   },
   versesView: {
     flex: 12,
-    // height: height * .6,
-    // marginTop: 5,
-    alignItems: 'center',
-    // width: width,
+    alignItems: 'center',    
   },
 });
 
