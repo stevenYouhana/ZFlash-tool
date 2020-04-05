@@ -20,7 +20,7 @@ const Styles = StyleSheet.create({
   searchViewContainer: {
     flex: 1.2,
     alignItems: 'flex-end',
-    paddingRight: 10,
+    paddingRight: '8%',
     paddingBottom: 4,
   },
   topicListView: {

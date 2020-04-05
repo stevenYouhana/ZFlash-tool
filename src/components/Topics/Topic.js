@@ -14,7 +14,7 @@ const formatTopicName = (topic) => {
 class Topic extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { editView: false }
+    this.state = { editView: false }    
   }
   deleteTopic = () => {
     Alert.alert(

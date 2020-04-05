@@ -36,7 +36,7 @@ export default class Topics extends React.Component {
       alert("Topic already exists!");
     }
   }
-  updateUponRemoval(topicRemoved) {
+  updateUponRemoval(topicRemoved) {    
     this.setState({ topics: this.state.topics.filter(el => el !== topicRemoved) });
   }
   updateData() {

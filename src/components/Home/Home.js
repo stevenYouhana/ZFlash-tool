@@ -14,7 +14,6 @@ export default class Home extends React.Component {
     this.state = {
       topic: '',
       rawVerses: '',
-      editMode: false,
     };
     this.handleTopic = this.handleTopic.bind(this);
   }
@@ -41,17 +40,19 @@ export default class Home extends React.Component {
   render() {
     return(
       <SafeAreaView style={Styles.container}>
-        <Text style={Styles.title}>Z Flash</Text>
+        <View style={Styles.title}>
+            <Text>Z Flash</Text>
+        </View>
         <View style={Styles.topicsView}>
             <Topics editMode={this.state.editMode} handleTopic={this.handleTopic}
             keyboardHidden={this.state.keyboardHidden} />
         </View>
         <View style={Styles.versesView}>
-            <Verses editMode={this.state.editMode}
+          <Verses
             topic={this.state.topic}
             rawVerses={this.state.rawVerses}
             refreshVerses={this.refreshVerses} />
-          </View>
+        </View>
       </SafeAreaView>
     );
   }

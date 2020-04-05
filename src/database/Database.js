@@ -64,8 +64,8 @@ export default class Database {
    }).then((totalVerses) => {
      db.transaction(tx => {
        tx.executeSql(
-         `UPDATE topics SET verses = '${totalVerses}' WHERE topicName = '${topic}'`,
-         [],
+         `UPDATE topics SET verses = "${totalVerses}" WHERE topicName = (?)`,
+         [topic],
          null,
          err => console.log("SQL EROR: ",err)
        );
@@ -82,8 +82,8 @@ export default class Database {
      const updatedVerses = currentVerses.replace(`|${verseRef}`, '');
      db.transaction(tx => {
        tx.executeSql(
-         `UPDATE topics SET verses = '${updatedVerses}' WHERE topicName = '${topic}'`,
-         [],
+         `UPDATE topics SET verses = '${updatedVerses}' WHERE topicName = (?)`,
+         [topic],
          null
        );
      });
@@ -91,16 +91,16 @@ export default class Database {
  }
  editTopicnName(topic, newName) {
    db.transaction( tx => {
-     tx.executeSql(`UPDATE topics SET topicName = '${newName.trim()}' WHERE topicName = '${topic}'`,
-     [],
+     tx.executeSql(`UPDATE topics SET topicName = (?) WHERE topicName = (?)`,
+     [newName.trim(), topic],
      null
     );
   });
  }
  deleteATopic(topicName) {
    db.transaction( tx =>
-     tx.executeSql(`DELETE FROM topics WHERE topicName = '${topicName}'`,
-       [],
+     tx.executeSql(`DELETE FROM topics WHERE topicName = (?)`,
+       [topicName],
        console.log("deleted!"),
        err => console.log("error deleting topic", err)
      )

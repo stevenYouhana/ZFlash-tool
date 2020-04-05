@@ -8,17 +8,20 @@ const Styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: 'rgba(215, 250, 249, .2)',
+    // height: height,
     // flexDirection: 'column',
     // width: width,
   },
   title: {
     flex: 1,
+    width: '82%',
+    paddingRight: '15%',
+    paddingLeft: '15%',
     fontFamily: 'monospace',
     fontSize: 14,
     fontWeight: 'normal',
     paddingTop: 24,
-    paddingLeft: 120,
-    paddingRight: 120,
+    alignItems: 'center',
     borderBottomRightRadius: 5,
     borderBottomLeftRadius: 5,
     backgroundColor: 'rgba(217, 116, 76, .09)'
@@ -29,7 +32,7 @@ const Styles = StyleSheet.create({
   },
   versesView: {
     flex: 12,
-    alignItems: 'center',    
+    alignItems: 'center',
   },
 });
 

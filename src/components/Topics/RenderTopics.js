@@ -18,7 +18,7 @@ export default class RenderTopics extends React.Component {
           <Topic key={`Topic${i}`} childKey={`childKey${i}`}
            textKey={`textKey${i}`} topicName={topic}
            handleTopic={this.props.handleTopic}
-           updateParentData={this.props.updateUponRemoval}
+           updateParentData={this.props.updateParentData}
            editTopicName={this.props.editTopicName} />
        );
      }) : <Text style={Styles.noTopicsLoded}>{noTopicsMsg}</Text>
