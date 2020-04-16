@@ -3,10 +3,7 @@ import {Text, ScrollView} from 'react-native';
 import Topic from './Topic';
 import Styles from './Styles/Styles';
 import ErrorView from '../ErrorView/ErrorView';
-import Bugsnag from '@bugsnag/expo'
 
-Bugsnag.start();
-const ErrorBoundary = Bugsnag.getPlugin('react');
 
 
 export default class RenderTopics extends React.Component {

@@ -3,10 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 import EditMenu from '../Utility/EditMenu';
 import AddModal from '../Utility/AddModal';
 import Database from '../../database/Database';
-import Bugsnag from '@bugsnag/expo';
 
-// Bugsnag.start();
-const ErrorBoundary = Bugsnag.getPlugin('react');
 
 const db = new Database();
 
