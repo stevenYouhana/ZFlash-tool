@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import {Text, ScrollView} from 'react-native';
 import Topic from './Topic';
 import Styles from './Styles/Styles';
+import ErrorView from '../ErrorView/ErrorView';
+import Bugsnag from '@bugsnag/expo'
+
+Bugsnag.start();
+const ErrorBoundary = Bugsnag.getPlugin('react');
+
 
 export default class RenderTopics extends React.Component {
   constructor(props) {
@@ -14,12 +20,13 @@ export default class RenderTopics extends React.Component {
   _renderTopics = (topicList, noTopicsMsg) => {
     return topicList && topicList.length > 0 ?
       topicList.map((topic, i) => {
+        // if (topic === 'error') throw new Error('topic error!!');
         return(
-          <Topic key={`Topic${i}`} childKey={`childKey${i}`}
-           textKey={`textKey${i}`} topicName={topic}
-           handleTopic={this.props.handleTopic}
-           updateParentData={this.props.updateParentData}
-           editTopicName={this.props.editTopicName} />
+            <Topic key={`Topic${i}`} childKey={`childKey${i}`}
+             textKey={`textKey${i}`} topicName={topic}
+             handleTopic={this.props.handleTopic}
+             updateParentData={this.props.updateParentData}
+             editTopicName={this.props.editTopicName} />
        );
      }) : <Text style={Styles.noTopicsLoded}>{noTopicsMsg}</Text>
   }
@@ -36,7 +43,9 @@ export default class RenderTopics extends React.Component {
   render() {
     return(
       <ScrollView style={Styles.topicsView} keyboardShouldPersistTaps={'always'}>
-        {this.getTopics()}
+
+          {this.getTopics()}
+
       </ScrollView>
     );
   }

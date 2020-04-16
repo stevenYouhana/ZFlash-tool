@@ -16,6 +16,7 @@ export default class Home extends React.Component {
       rawVerses: '',
     };
     this.handleTopic = this.handleTopic.bind(this);
+    this.updateTopicName = this.updateTopicName.bind(this);
   }
   handleTopic(topic) {
     const formated = topic.trim();
@@ -28,6 +29,9 @@ export default class Home extends React.Component {
         alert("handleTopic(topic) error. Contact developer");
       });
     }, 100);
+  }
+  updateTopicName(newName) {
+    this.setState({ topic: newName })
   }
   refreshVerses = (topic) => {
     db.findTopic(topic).then(results => {
@@ -44,8 +48,9 @@ export default class Home extends React.Component {
             <Text>Z Flash</Text>
         </View>
         <View style={Styles.topicsView}>
-            <Topics editMode={this.state.editMode} handleTopic={this.handleTopic}
-            keyboardHidden={this.state.keyboardHidden} />
+            <Topics handleTopic={this.handleTopic}
+            keyboardHidden={this.state.keyboardHidden}
+            updateTopicName={this.updateTopicName} />
         </View>
         <View style={Styles.versesView}>
           <Verses

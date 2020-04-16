@@ -7,7 +7,7 @@
     "slug": "ZFlash",
     "privacy": "unlisted",
     "sdkVersion": "36.0.0",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "ios": {
       "bundleIdentifier": "com.studytool.zflash",
       "buildNumber": "1.1.0",
@@ -35,6 +35,19 @@
       "web"
     ],
     "orientation": "portrait",
-    "description": "with search feature"
+    "description": "with search feature",
+    "extra": {
+      "bugsnag": {
+        "apiKey": "2a6ee2d779ad08c5338ff783b4a2f5d7"
+      }
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "@bugsnag/expo/hooks/post-publish.js",
+          "config": {}
+        }
+      ]
+    }
   }
 }
