@@ -6,7 +6,7 @@ import Home from './src/components/Home/Home';
 
 export default class App extends Component {
   componentDidMount() {
-    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+    // ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
   }
   render() {
     return (
@@ -18,7 +18,7 @@ export default class App extends Component {
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 1,    
+    flex: 1,
     // alignSelf: 'stretch',
     // alignItems: 'center',
     // backgroundColor: '#F5FCFF',
