@@ -1,6 +1,7 @@
 
 import * as SQLite from 'expo-sqlite';
 const db = SQLite.openDatabase("db.db");
+import * as Sentry from 'sentry-expo';
 
 export default class Database {
   setDataUpToDate() {
@@ -15,6 +16,7 @@ export default class Database {
     });
  }
   initDB() {
+    Sentry.captureException(new Error("initDB()"));
     // db.transaction(tx => {
     //   tx.executeSql("DROP TABLE topics");
     //   console.log("TABLE DROPPED!");
@@ -43,6 +45,7 @@ export default class Database {
   }
   add(topic) {
    if (topic === null || topic === "") {
+     Sentry.captureException(new Error("Database.js if (topic === null || topic === '')"));
      return false;
    }
    db.transaction(
@@ -67,11 +70,15 @@ export default class Database {
          `UPDATE topics SET verses = "${totalVerses}" WHERE topicName = (?)`,
          [topic],
          null,
-         err => console.log("SQL EROR: ",err)
+         err => {
+           console.log("SQL EROR: ",err)
+           Sentry.captureException(new Error("Database.js addVerseFor(topic, newVerse): ",err.message));
+         }
        );
      });
    }).catch(err => {
      console.log("addVerseFor(topic, newVerse): ",err.message)
+     Sentry.captureException(new Error("Database.js addVerseFor(topic, newVerse): ",err.message));
      alert("Database error.\nTry again later");
    });
  }
@@ -87,6 +94,9 @@ export default class Database {
          null
        );
      });
+   }).catch(err => {
+     console.log("deleteAVerseFrom(topic, verseRef): ",err.message)
+     Sentry.captureException(new Error("Database.js deleteAVerseFrom(topic, verseRef): ",err.message));
    });
  }
  editTopicnName(topic, newName) {
@@ -102,12 +112,16 @@ export default class Database {
      tx.executeSql(`DELETE FROM topics WHERE topicName = (?)`,
        [topicName],
        console.log("deleted!"),
-       err => console.log("error deleting topic", err)
+       err => {
+        console.log("error deleting topic", err);
+        Sentry.captureException(new Error("Database.js: deleteATopic(topicName):", err.message))
+       }
      )
    );
  }
  clearDB() {
    console.log("clearDB() ...");
+   Sentry.captureException("clearDB()");
    db.transaction(
                tx => {
                  tx.executeSql(`DELETE FROM topics`);
