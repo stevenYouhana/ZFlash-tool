@@ -15,8 +15,7 @@ export default class Database {
       });
     });
  }
-  initDB() {
-    Sentry.captureException(new Error("initDB()"));
+  initDB() {    
     // db.transaction(tx => {
     //   tx.executeSql("DROP TABLE topics");
     //   console.log("TABLE DROPPED!");
