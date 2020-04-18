@@ -4,7 +4,6 @@ import EditMenu from '../Utility/EditMenu';
 import AddModal from '../Utility/AddModal';
 import Database from '../../database/Database';
 
-
 const db = new Database();
 
 const formatTopicName = (topic) => {
@@ -54,7 +53,6 @@ class Topic extends React.Component {
   }
   render() {
     return(
-
         <TouchableOpacity
         childKey={this.props.childKey}
         onPress={() => this.props.handleTopic(this.props.topicName)}
@@ -70,7 +68,6 @@ class Topic extends React.Component {
          />
          <Text key={this.props.textKey}>{this.props.topicName}</Text>
        </TouchableOpacity>
-
     );
   }
 }

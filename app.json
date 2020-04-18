@@ -35,19 +35,6 @@
       "web"
     ],
     "orientation": "portrait",
-    "description": "with search feature",
-    "extra": {
-      "bugsnag": {
-        "apiKey": "2a6ee2d779ad08c5338ff783b4a2f5d7"
-      }
-    },
-    "hooks": {
-      "postPublish": [
-        {
-          "file": "@bugsnag/expo/hooks/post-publish.js",
-          "config": {}
-        }
-      ]
-    }
+    "description": "with search feature",    
   }
 }
