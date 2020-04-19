@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
+import * as Sentry from 'sentry-expo';
 import EditMenu from '../Utility/EditMenu';
 import AddModal from '../Utility/AddModal';
 import Database from '../../database/Database';
@@ -43,6 +44,7 @@ class Topic extends React.Component {
         this.props.editTopicName(this.props.topicName, newName);
       } catch (err) {
         console.error("editTopic = (newName) => ", err)
+        Sentry.captureException(new Error("Topic.js: editTopic(): ", err.message));
       }
       finally {
         this.setState({ editView: false });

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView } from 'react-native';
+import * as Sentry from 'sentry-expo';
 import Verse from './Verse';
 import AddVerse from './AddVerse';
 import AddModal from '../Utility/AddModal';
@@ -31,6 +32,7 @@ export default class Verses extends React.Component {
     esv.fetch(verseRef).then(verse => this.setState({ verse }))
       .catch(err => {
         this.setState({ verse: API_ERR });
+        Sentry.captureException(new Error("Verses.js: handleVerse(verseRef)", err.message));
       });
   }
   renderVerses() {
@@ -64,6 +66,7 @@ export default class Verses extends React.Component {
       }, 500);
     } catch(err) {
       console.error("handleNewVerse(newVerse): ", err)
+      Sentry.captureException(new Error("Verses.js: handleNewVerse(newVerse): ", err.message);
       alert("an error occurred: handleNewVerse(newVerse)\ncontact the developer");
     }
   }

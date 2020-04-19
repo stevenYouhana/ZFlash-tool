@@ -15,7 +15,7 @@ export default class Database {
       });
     });
  }
-  initDB() {    
+  initDB() {
     // db.transaction(tx => {
     //   tx.executeSql("DROP TABLE topics");
     //   console.log("TABLE DROPPED!");
