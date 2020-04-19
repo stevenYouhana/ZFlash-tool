@@ -66,7 +66,7 @@ export default class Verses extends React.Component {
       }, 500);
     } catch(err) {
       console.error("handleNewVerse(newVerse): ", err)
-      Sentry.captureException(new Error("Verses.js: handleNewVerse(newVerse): ", err.message);
+      Sentry.captureException(new Error("Verses.js: handleNewVerse(newVerse): ", err.message));
       alert("an error occurred: handleNewVerse(newVerse)\ncontact the developer");
     }
   }

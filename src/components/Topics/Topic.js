@@ -24,8 +24,15 @@ class Topic extends React.Component {
       [
         { text: 'Yes',
           onPress: () => {
-            db.deleteATopic(this.props.topicName);
-            setTimeout(() => this.props.updateParentData(this.props.topicName), 500);
+            try {
+              db.deleteATopic(this.props.topicName);
+              setTimeout(() => this.props.updateParentData(this.props.topicName), 500);
+            } catch(err) {
+              console.log("error deleting topic\nTry again later.");
+              Sentry.captureException(new Error("Topic.js: ", err.message));
+            } finally {
+              this.hideEditMenu();
+            }
           }
         },
         { text: 'No', onPress: () => console.log('No Pressed') },
