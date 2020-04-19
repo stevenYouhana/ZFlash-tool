@@ -7,7 +7,7 @@ const Verse = (props) => {
   const deleteVerse = () => {
     Alert.alert(
       'Delete',
-      `Are you sure you want to delete ${props.verseRef} from ${props.topic}?`,
+      `Are you sure you want to delete ${props.verseRef} from <${props.topic}>?`,
       [
         { text: 'Yes',
           onPress: () => {
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(0, 0, 0, .5)',
     borderWidth: .3,
     borderBottomWidth: 1.9,
-    borderLeftWidth: 1.8,    
+    borderLeftWidth: 1.8,
     backgroundColor: 'rgba(255, 237, 164, .7)'
   }
 });

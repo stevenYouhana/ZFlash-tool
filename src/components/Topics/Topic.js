@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
+import * as Sentry from 'sentry-expo';
 import EditMenu from '../Utility/EditMenu';
 import AddModal from '../Utility/AddModal';
 import Database from '../../database/Database';
@@ -14,7 +15,7 @@ const formatTopicName = (topic) => {
 class Topic extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { editView: false }    
+    this.state = { editView: false }
   }
   deleteTopic = () => {
     Alert.alert(
@@ -43,6 +44,7 @@ class Topic extends React.Component {
         this.props.editTopicName(this.props.topicName, newName);
       } catch (err) {
         console.error("editTopic = (newName) => ", err)
+        Sentry.captureException(new Error("Topic.js: editTopic(): ", err.message));
       }
       finally {
         this.setState({ editView: false });
@@ -53,21 +55,21 @@ class Topic extends React.Component {
   }
   render() {
     return(
-      <TouchableOpacity
-      childKey={this.props.childKey}
-      onPress={() => this.props.handleTopic(this.props.topicName)}
-      onLongPress={() => this.setState({ editView: true })}
-       style={styles.topic}>
+        <TouchableOpacity
+        childKey={this.props.childKey}
+        onPress={() => this.props.handleTopic(this.props.topicName)}
+        onLongPress={() => this.setState({ editView: true })}
+         style={styles.topic}>
 
-       <AddModal visiblity={this.state.editView}
-         hide={this.hideEditMenu}
-         title="Edit name or detele topic"
-         purpose={() => <EditMenu visiblity={this.state.editView}
-         currentTopicTitle={this.props.topicName}
-         deleteTopic={this.deleteTopic} editTopic={this.editTopic} />}
-       />
-       <Text key={this.props.textKey}>{this.props.topicName}</Text>
-     </TouchableOpacity>
+         <AddModal visiblity={this.state.editView}
+           hide={this.hideEditMenu}
+           title="Edit topic name"
+           purpose={() => <EditMenu visiblity={this.state.editView}
+           currentTopicTitle={this.props.topicName}
+           deleteTopic={this.deleteTopic} editTopic={this.editTopic} />}
+         />
+         <Text key={this.props.textKey}>{this.props.topicName}</Text>
+       </TouchableOpacity>
     );
   }
 }

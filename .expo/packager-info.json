@@ -3,8 +3,15 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
+<<<<<<< HEAD
   "packagerPid": 10172,
   "expoServerNgrokUrl": null,
   "packagerNgrokUrl": null,
   "ngrokPid": null
+=======
+  "packagerPid": 1016,
+  "expoServerNgrokUrl": "https://vz-2b8.stevenyouhana.zflash.exp.direct",
+  "packagerNgrokUrl": "https://packager.vz-2b8.stevenyouhana.zflash.exp.direct",
+  "ngrokPid": 16100
+>>>>>>> tomerge
 }

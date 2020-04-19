@@ -36,7 +36,7 @@ export default class Topics extends React.Component {
       alert("Topic already exists!");
     }
   }
-  updateUponRemoval(topicRemoved) {    
+  updateUponRemoval(topicRemoved) {
     this.setState({ topics: this.state.topics.filter(el => el !== topicRemoved) });
   }
   updateData() {
@@ -53,8 +53,9 @@ export default class Topics extends React.Component {
     }
   }
   editTopicName(topicName, newName) {
+    const formatedName = newName.trim();
     if (this.state.topics.some(topic =>
-      topic.toLowerCase() === newName.trim().toLowerCase())) {
+      topic.toLowerCase() === formatedName.toLowerCase())) {
         alert("Topic already exists!\nEnding process.");
         return;
     }
@@ -62,10 +63,11 @@ export default class Topics extends React.Component {
     let i = 0;
     for (i; i<topics.length; i++)
       if (topics[i] === topicName) {
-        topics[i] = newName.trim();
+        topics[i] = formatedName;
         break;
       }
-    this.setState({ topics: topics });
+    this.setState({ topics: topics, topic: formatedName });
+    this.props.updateTopicName(formatedName);
   }
   hideAddTopicVisibility = () => {
     this.setState({ AddTopicVisibility: false });

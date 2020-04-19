@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, SafeAreaView, TextInput, Button } from 'react-native';
+import * as Sentry from 'sentry-expo';
 import Styles from './Styles.js';
 
 import Database from '../../database/Database';
@@ -16,6 +17,7 @@ export default class Home extends React.Component {
       rawVerses: '',
     };
     this.handleTopic = this.handleTopic.bind(this);
+    this.updateTopicName = this.updateTopicName.bind(this);    
   }
   handleTopic(topic) {
     const formated = topic.trim();
@@ -25,9 +27,13 @@ export default class Home extends React.Component {
         this.setState({ rawVerses: results[0].verses })
       }).catch(err => {
         console.error("handleTopic(topic) > db.findTopic(topic).then(results =>", err);
-        alert("handleTopic(topic) error. Contact developer");
+        Sentry.captureException(new Error("Home.js: handleTopic(topic) > db.findTopic(topic).then(results =>"));
+        alert("handleTopic(topic) error.\nTry again later or Contact developer");
       });
     }, 100);
+  }
+  updateTopicName(newName) {
+    this.setState({ topic: newName })
   }
   refreshVerses = (topic) => {
     db.findTopic(topic).then(results => {
@@ -44,8 +50,9 @@ export default class Home extends React.Component {
             <Text>Z Flash</Text>
         </View>
         <View style={Styles.topicsView}>
-            <Topics editMode={this.state.editMode} handleTopic={this.handleTopic}
-            keyboardHidden={this.state.keyboardHidden} />
+            <Topics handleTopic={this.handleTopic}
+            keyboardHidden={this.state.keyboardHidden}
+            updateTopicName={this.updateTopicName} />
         </View>
         <View style={Styles.versesView}>
           <Verses
