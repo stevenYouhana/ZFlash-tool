@@ -13,13 +13,14 @@ export default class RenderTopics extends React.Component {
   }
   _renderTopics = (topicList, noTopicsMsg) => {
     return topicList && topicList.length > 0 ?
-      topicList.map((topic, i) => {        
+      topicList.map((topic, i) => {
         return(
             <Topic key={`Topic${i}`} childKey={`childKey${i}`}
              textKey={`textKey${i}`} topicName={topic}
              handleTopic={this.props.handleTopic}
              updateParentData={this.props.updateParentData}
-             editTopicName={this.props.editTopicName} />
+             editTopicName={this.props.editTopicName}
+             topicDeleted={this.props.topicDeleted} />
        );
      }) : <Text style={Styles.noTopicsLoded}>{noTopicsMsg}</Text>
   }

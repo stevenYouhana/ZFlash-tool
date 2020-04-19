@@ -112,6 +112,7 @@ export default class Topics extends React.Component {
             editTopicName={this.editTopicName}
             searching={this.state.searching}
             searchText={this.state.searchText}
+            topicDeleted={this.props.topicDeleted}
           />
         </View>
       </View>

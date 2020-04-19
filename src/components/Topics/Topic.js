@@ -27,6 +27,7 @@ class Topic extends React.Component {
             try {
               db.deleteATopic(this.props.topicName);
               setTimeout(() => this.props.updateParentData(this.props.topicName), 500);
+              this.props.topicDeleted(this.props.topicName);
             } catch(err) {
               console.log("error deleting topic\nTry again later.");
               Sentry.captureException(new Error("Topic.js: ", err.message));

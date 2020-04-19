@@ -17,7 +17,8 @@ export default class Home extends React.Component {
       rawVerses: '',
     };
     this.handleTopic = this.handleTopic.bind(this);
-    this.updateTopicName = this.updateTopicName.bind(this);    
+    this.updateTopicName = this.updateTopicName.bind(this);
+    this.topicDeleted = this.topicDeleted.bind(this);
   }
   handleTopic(topic) {
     const formated = topic.trim();
@@ -34,6 +35,9 @@ export default class Home extends React.Component {
   }
   updateTopicName(newName) {
     this.setState({ topic: newName })
+  }
+  topicDeleted(topic) {
+    this.setState({ topic: '' })
   }
   refreshVerses = (topic) => {
     db.findTopic(topic).then(results => {
@@ -52,7 +56,8 @@ export default class Home extends React.Component {
         <View style={Styles.topicsView}>
             <Topics handleTopic={this.handleTopic}
             keyboardHidden={this.state.keyboardHidden}
-            updateTopicName={this.updateTopicName} />
+            updateTopicName={this.updateTopicName}
+            topicDeleted={this.topicDeleted} />
         </View>
         <View style={Styles.versesView}>
           <Verses
