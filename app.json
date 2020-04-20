@@ -3,7 +3,7 @@
   "displayName": "ZFlash",
   "expo": {
     "name": "ZFlash",
-    "icon": "./img/iconNoneSeeThrough.jpg",
+    "icon": "./img/icon.png",
     "slug": "ZFlash",
     "privacy": "unlisted",
     "sdkVersion": "36.0.0",
