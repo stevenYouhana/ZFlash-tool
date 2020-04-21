@@ -39,7 +39,8 @@
         "xxhdpi": "./img/splash.png",
         "xxxhdpi": "./img/splash.png",
         "resizeMode": "contain"
-      }
+      },
+      "permissions": [],
     },
     "entryPoint": "node_modules/expo/AppEntry.js/",
     "platforms": [
