@@ -26,9 +26,6 @@ export default class App extends Component {
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    // alignSelf: 'stretch',
-    // alignItems: 'center',
-    // backgroundColor: '#F5FCFF',
+    flex: 1,    
   },
 });

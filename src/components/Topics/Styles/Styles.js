@@ -27,7 +27,7 @@ const Styles = StyleSheet.create({
     flex: 5
   },
   topicsView: {
-    width: 300,
+    width: width * .77,
     borderStyle: 'solid',
     borderWidth: .6,
     borderColor: 'rgba(0, 0, 0, .5)',

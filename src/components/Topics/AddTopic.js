@@ -33,17 +33,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between'
   },
-  textField: {
+  textField: {    
     alignContent: 'flex-start',
     height: 35,
-    width: 215,
+    width: '77%',
     borderColor: 'white',
     color: 'white',
     borderWidth: 1,
     paddingLeft: 5,
   },
   buttonView: {
-    width: 80,
+    width: '20%',
     height: 40,
   }
 });

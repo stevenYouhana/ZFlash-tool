@@ -7,7 +7,7 @@
     "slug": "ZFlash",
     "privacy": "unlisted",
     "sdkVersion": "36.0.0",
-    "version": "1.3.8",
+    "version": "1.3.9",
     "hooks": {
       "postPublish": [
         {
@@ -30,7 +30,7 @@
     },
     "android": {
       "package": "com.studytool.zflash",
-      "versionCode": 3,
+      "versionCode": 4,
       "splash": {
         "mdpi": "./img/splash.png",
         "hdpi": "./img/splash.png",

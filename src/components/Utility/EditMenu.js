@@ -39,8 +39,7 @@ const styles = StyleSheet.create({
   deleteView: {
     marginVertical: 10,
   },
-  textField: {
-    // flex: 1,
+  textField: {    
     alignContent: 'flex-start',
     height: 35,
     width: '80%',
