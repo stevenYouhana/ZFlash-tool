@@ -72,12 +72,12 @@ export default class Topics extends React.Component {
   hideAddTopicVisibility = () => {
     this.setState({ AddTopicVisibility: false });
   }
-  componentDidMount() {
+  componentDidMount() {    
     db.setDataUpToDate().then(results => {
       results.map(result => {
         this.setState({ topics: [...this.state.topics, result.topicName] });
-      })
-    })
+      });
+    });
   }
   render() {
     const searchingInProgress = (searching) => {

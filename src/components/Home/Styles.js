@@ -26,6 +26,19 @@ const Styles = StyleSheet.create({
     borderBottomLeftRadius: 5,
     backgroundColor: 'rgba(217, 116, 76, .09)'
   },
+  version: {
+    flex: 1,
+    paddingRight: '15%',
+    paddingLeft: '15%',
+    fontFamily: 'monospace',
+    fontSize: 7,
+    fontWeight: 'normal',
+    paddingTop: 1,
+    alignItems: 'center',
+    borderBottomRightRadius: 5,
+    borderBottomLeftRadius: 5,
+    color: 'rgba(0, 0, 0, .3)'    
+  },
   topicsView: {
     flex: 7,
     paddingBottom: 1,

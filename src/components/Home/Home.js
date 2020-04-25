@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View, SafeAreaView, TextInput, Button } from 'react-native';
+import Constants from 'expo-constants';
 import * as Sentry from 'sentry-expo';
+import appJson from '../../../app.json';
 import Styles from './Styles.js';
 
 import Database from '../../database/Database';
@@ -28,7 +30,7 @@ export default class Home extends React.Component {
         this.setState({ rawVerses: results[0].verses })
       }).catch(err => {
         console.error("handleTopic(topic) > db.findTopic(topic).then(results =>", err);
-        Sentry.captureException(new Error("Home.js: handleTopic(topic) > db.findTopic(topic).then(results =>"));
+        Sentry.captureException(new Error("Home.js: handleTopic(topic)", err.message));
         alert("handleTopic(topic) error.\nTry again later or Contact developer");
       });
     }, 100);
@@ -52,6 +54,7 @@ export default class Home extends React.Component {
       <SafeAreaView style={Styles.container}>
         <View style={Styles.title}>
             <Text>Z Flash</Text>
+            <Text style={Styles.version}>V{appJson.expo.version}</Text>
         </View>
         <View style={Styles.topicsView}>
             <Topics handleTopic={this.handleTopic}
