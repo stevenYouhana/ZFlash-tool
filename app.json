@@ -30,7 +30,7 @@
     },
     "android": {
       "package": "com.studytool.zflash",
-      "versionCode": 2,
+      "versionCode": 3,
       "splash": {
         "mdpi": "./img/splash.png",
         "hdpi": "./img/splash.png",
